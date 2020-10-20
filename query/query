@@ -1,0 +1,164 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: May 19, 2020 at 04:11 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.3.8
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `sq_yellowhk`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL,
+  `name_en` varchar(200) NOT NULL,
+  `name_tc` varchar(200) NOT NULL,
+  `fcId` int(11) NOT NULL DEFAULT '0',
+  `image` varchar(200) NOT NULL,
+  `description_en` text NOT NULL,
+  `description_tc` text NOT NULL,
+  `seo_en` varchar(100) NOT NULL,
+  `seo_tc` varchar(100) NOT NULL,
+  `displayOrder` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `name_en`, `name_tc`, `fcId`, `image`, `description_en`, `description_tc`, `seo_en`, `seo_tc`, `displayOrder`) VALUES
+(1, 'Toys', '玩具', 0, '', '', '', 'toys', '玩具', 1),
+(2, 'Gaming', '電子遊戲', 0, '', '', '', 'gaming', '電子遊戲', 2),
+(3, 'Men\'s Cloth', '男士服裝', 0, '', '', '', 'men-s-cloth', '男士服裝', 3),
+(4, 'Women\'s Cloth', '女士服裝', 0, '', '', '', 'women-s-cloth', '女士服裝', 4),
+(5, 'Arts', '手工藝', 0, '', '', '', 'arts', '手工藝', 5),
+(6, 'Living', '生活用品', 0, '', '', '', 'living', '生活用品', 6),
+(7, 'Models', '模型', 1, '', '', '', 'models', '模型', 1),
+(8, 'Figures', '手辦', 1, '', '', '', 'figures', '手辦', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product`
+--
+
+CREATE TABLE `product` (
+  `productId` int(11) NOT NULL,
+  `refId` varchar(20) NOT NULL,
+  `fcId` int(11) NOT NULL,
+  `scId` int(11) NOT NULL,
+  `listingTitle` varchar(500) NOT NULL,
+  `condition` int(1) NOT NULL,
+  `brand` varchar(30) NOT NULL,
+  `price` int(11) NOT NULL,
+  `description` varchar(2000) NOT NULL,
+  `keyword` varchar(500) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `productImage`
+--
+
+CREATE TABLE `productImage` (
+  `imageId` int(11) NOT NULL,
+  `productId` int(11) NOT NULL,
+  `path` varchar(500) NOT NULL,
+  `orderId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `userId` int(11) NOT NULL,
+  `firstName` varchar(15) NOT NULL,
+  `lastName` varchar(15) NOT NULL,
+  `password` varchar(240) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `isVerify` int(1) NOT NULL,
+  `profilePic` varchar(200) NOT NULL,
+  `verifyCode` varchar(200) NOT NULL,
+  `seo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`userId`, `firstName`, `lastName`, `password`, `email`, `isVerify`, `profilePic`, `verifyCode`, `seo`) VALUES
+(1, 'Jerry', 'Wong', 'Q160zVLZojqwZO6Gg3Mx+KRXmk8430UIUoTUQxVEpAa8T6D8M+pyRSbVlLMMexlmQXXFbd8a0ttbStiuO3s8+A==', 'man0551hk@yahoo.com.hk', 1, '', 'ltY8SV4pur2A451D', 'jerrywong');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`productId`),
+  ADD KEY `productId` (`productId`,`refId`,`fcId`,`scId`,`condition`,`price`,`keyword`,`status`);
+
+--
+-- Indexes for table `productImage`
+--
+ALTER TABLE `productImage`
+  ADD PRIMARY KEY (`imageId`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`userId`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `productImage`
+--
+ALTER TABLE `productImage`
+  MODIFY `imageId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;

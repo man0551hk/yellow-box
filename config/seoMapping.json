@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "seo_tc": "玩具",
+    "seo_en": "toys",
+    "type": "category"
+  },
+  {
+    "id": "2",
+    "seo_tc": "電子遊戲",
+    "seo_en": "gaming",
+    "type": "category"
+  },
+  {
+    "id": "3",
+    "seo_tc": "男士服裝",
+    "seo_en": "men-s-cloth",
+    "type": "category"
+  },
+  {
+    "id": "4",
+    "seo_tc": "女士服裝",
+    "seo_en": "women-s-cloth",
+    "type": "category"
+  },
+  {
+    "id": "5",
+    "seo_tc": "手工藝",
+    "seo_en": "arts",
+    "type": "category"
+  },
+  {
+    "id": "6",
+    "seo_tc": "生活用品",
+    "seo_en": "living",
+    "type": "category"
+  },
+  {
+    "id": "7",
+    "seo_tc": "模型",
+    "seo_en": "models",
+    "type": "category"
+  },
+  {
+    "id": "8",
+    "seo_tc": "手辦",
+    "seo_en": "figures",
+    "type": "category"
+  }
+]

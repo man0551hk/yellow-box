@@ -1,0 +1,100 @@
+[
+  {
+    "id": 1,
+    "name_en": "Toys",
+    "name_tc": "玩具",
+    "fcId": "0",
+    "image": "",
+    "description_en": "",
+    "description_tc": "",
+    "seo_en": "toys",
+    "seo_tc": "玩具",
+    "displayOrder": 1,
+    "sub_category": [
+      {
+        "id": 7,
+        "name_en": "Models",
+        "name_tc": "模型",
+        "fcId": 1,
+        "image": "",
+        "description_en": "",
+        "description_tc": "",
+        "seo_en": "models",
+        "seo_tc": "模型",
+        "displayOrder": 1
+      },
+      {
+        "id": "8",
+        "name_en": "Figures",
+        "name_tc": "手辦",
+        "fcId": 1,
+        "image": "",
+        "description_en": "",
+        "description_tc": "",
+        "seo_en": "figures",
+        "seo_tc": "手辦",
+        "displayOrder": 2
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name_en": "Gaming",
+    "name_tc": "電子遊戲",
+    "fcId": "0",
+    "image": "",
+    "description_en": "",
+    "description_tc": "",
+    "seo_en": "gaming",
+    "seo_tc": "電子遊戲",
+    "displayOrder": 2
+  },
+  {
+    "id": 3,
+    "name_en": "Men's Cloth",
+    "name_tc": "男士服裝",
+    "fcId": "0",
+    "image": "",
+    "description_en": "",
+    "description_tc": "",
+    "seo_en": "men-s-cloth",
+    "seo_tc": "男士服裝",
+    "displayOrder": 3
+  },
+  {
+    "id": 4,
+    "name_en": "Women's Cloth",
+    "name_tc": "女士服裝",
+    "fcId": "0",
+    "image": "",
+    "description_en": "",
+    "description_tc": "",
+    "seo_en": "women-s-cloth",
+    "seo_tc": "女士服裝",
+    "displayOrder": 4
+  },
+  {
+    "id": 5,
+    "name_en": "Arts",
+    "name_tc": "手工藝",
+    "fcId": "0",
+    "image": "",
+    "description_en": "",
+    "description_tc": "",
+    "seo_en": "arts",
+    "seo_tc": "手工藝",
+    "displayOrder": 5
+  },
+  {
+    "id": 6,
+    "name_en": "Living",
+    "name_tc": "生活用品",
+    "fcId": "0",
+    "image": "",
+    "description_en": "",
+    "description_tc": "",
+    "seo_en": "living",
+    "seo_tc": "生活用品",
+    "displayOrder": 6
+  }
+]
