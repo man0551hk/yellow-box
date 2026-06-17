@@ -1,39 +1,41 @@
-<div class="container-fluid p-0">
-  <!-- Hero Banner -->
-  <div class="hero-banner position-relative">
-    <div class="container py-5 text-center position-relative" style="z-index:1;">
-      <h1 class="display-4 font-weight-bold mb-3" style="color:#332c24;"><?= Session::get("lang") == "tc" ? "買賣·咁簡單" : "Buy & Sell. Made Simple." ?></h1>
-      <p class="lead mb-4" style="color:#5a4a3a;"><?= Session::get("lang") == "tc" ? "香港人嘅網上買賣平台" : "Hong Kong's Online Marketplace" ?></p>
-      <form class="form-inline justify-content-center" action="<?= Url::getDomain() ?>search/" method="GET">
-        <div class="input-group" style="max-width:500px;width:100%;">
-          <input class="form-control form-control-lg search-bar" type="search" name="keyword" placeholder="<?= Lang::$lang["search"] ?>..." required>
-          <div class="input-group-append">
-            <button class="btn btn-dark btn-lg btn-shadow" type="submit"><i class="fas fa-search mr-2"></i><?= Lang::$lang["search"] ?></button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
+<?php $isTc = Session::get("lang") == "tc"; ?>
 
+<!-- Hero -->
+<div class="page-title-overlap bg-img pt-4">
+  <div class="container py-5 text-center">
+    <h1 class="display-4 text-light font-weight-bold mb-3"><?= $isTc ? "買賣·咁簡單" : "Buy & Sell. Made Simple." ?></h1>
+    <p class="lead text-light opacity-75 mb-4"><?= $isTc ? "香港人嘅網上買賣平台" : "Hong Kong's Online Marketplace" ?></p>
+    <form class="mx-auto" action="<?= Url::getDomain() ?>search/" method="GET" style="max-width:32rem;">
+      <div class="input-group-overlay">
+        <input class="form-control form-control-lg appended-form-control" type="search" name="keyword" placeholder="<?= Lang::$lang["search"] ?>..." required>
+        <div class="input-group-append-overlay"><span class="input-group-text"><i class="czi-search"></i></span></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container pb-5 mb-2 mb-md-4">
   <!-- Categories -->
-  <div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h5 class="section-title mb-0"><?= Lang::$lang["categories"] ?></h5>
-      <a href="<?= Url::getDomain() ?>" class="text-muted small font-weight-medium"><?= Lang::$lang["viewAll"] ?> <i class="fas fa-arrow-right ml-1"></i></a>
+  <div class="pt-4 pb-3">
+    <div class="d-flex flex-wrap justify-content-between align-items-center pt-2 pb-4">
+      <h2 class="h3 mb-0"><?= Lang::$lang["categories"] ?></h2>
+      <a class="font-size-sm text-accent" href="<?= Url::getDomain() ?>search/"><?= Lang::$lang["viewAll"] ?><i class="czi-arrow-right font-size-xs align-middle ml-1"></i></a>
     </div>
     <div class="row">
       <?php
       $homeCategorys = $this->categoryController->GetCategory();
-      foreach ($homeCategorys as $cat):
+      $htmlBase = Url::getDomain() . 'html/';
+      foreach ($homeCategorys as $i => $cat):
+        $imgNum = str_pad(($i % 6) + 1, 2, '0', STR_PAD_LEFT);
       ?>
-        <div class="col-4 col-md-2 mb-3">
-          <a href="<?= Url::SetLink($cat["seo"]) ?>" class="text-decoration-none">
-            <div class="card text-center py-3 h-100 border-0 shadow-sm category-card">
-              <div class="card-body">
-                <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width:50px;height:50px;background:#FFF8DC;">
-                  <i class="fas fa-tag" style="color:#DAA520;font-size:1.3rem;"></i>
+        <div class="col-6 col-md-4 col-lg-2 mb-4">
+          <a class="d-block text-center text-decoration-none" href="<?= Url::SetLink($cat["seo"]) ?>">
+            <div class="card border-0 box-shadow-sm h-100">
+              <div class="card-body p-3">
+                <div class="d-block overflow-hidden rounded-lg mb-2">
+                  <img src="<?= $htmlBase ?>img/shop/category/<?= $imgNum ?>.jpg" alt="<?= htmlspecialchars($cat["category"]) ?>">
                 </div>
-                <p class="card-text small font-weight-bold mb-0 text-dark"><?= $cat["category"] ?></p>
+                <p class="font-size-sm font-weight-medium text-dark mb-0"><?= htmlspecialchars($cat["category"]) ?></p>
               </div>
             </div>
           </a>
@@ -42,145 +44,102 @@
     </div>
   </div>
 
-  <!-- Trending Products -->
-  <div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h5 class="section-title mb-0"><?= Session::get("lang") == "tc" ? "🔥 熱門商品" : "🔥 Trending Products" ?></h5>
-      <a href="<?= Url::getDomain() ?>search/?sortBy=popular" class="text-muted small font-weight-medium"><?= Lang::$lang["viewAll"] ?> <i class="fas fa-arrow-right ml-1"></i></a>
+  <!-- Trending -->
+  <div class="pt-2 pb-3">
+    <div class="d-flex flex-wrap justify-content-between align-items-center pt-2 pb-4">
+      <h2 class="h3 mb-0"><i class="czi-flame text-accent mr-1"></i><?= $isTc ? "熱門商品" : "Trending Products" ?></h2>
+      <a class="font-size-sm text-accent" href="<?= Url::getDomain() ?>search/?sortBy=popular"><?= Lang::$lang["viewAll"] ?><i class="czi-arrow-right font-size-xs align-middle ml-1"></i></a>
     </div>
-    <div class="row">
+    <div class="row mx-n2">
       <?php
       $trendingProducts = $this->productController->getTrendingProducts(8);
       if (!empty($trendingProducts)):
         foreach ($trendingProducts as $product):
-      ?>
-        <div class="col-lg-3 col-md-4 col-6 mb-3">
-          <div class="card product-card h-100">
-            <div class="position-relative">
-              <span class="trending-badge badge badge-yellow"><i class="fas fa-fire mr-1"></i>Trending</span>
-              <a href="<?= Url::getDomain() ?>product/<?= $product["refId"] ?>/">
-                <img src="<?= $product["image"] ?: Url::getDomain() . 'images/test.jpg' ?>" class="card-img-top" alt="<?= htmlspecialchars($product["listingTitle"]) ?>">
-              </a>
-            </div>
-            <div class="card-body p-3">
-              <p class="card-text small text-muted mb-1">
-                <a href="<?= Url::SetLink($product["category_seo"]) ?>" class="category-badge"><?= $product["category_name"] ?></a>
-              </p>
-              <h6 class="card-title mb-1">
-                <a href="<?= Url::getDomain() ?>product/<?= $product["refId"] ?>/" class="text-dark"><?= htmlspecialchars(mb_substr($product["listingTitle"], 0, 30)) ?></a>
-              </h6>
-              <p class="product-price mb-0">$<?= number_format($product["price"]) ?></p>
-              <div class="d-flex justify-content-between align-items-center mt-1">
-                <small class="text-muted"><i class="far fa-clock mr-1"></i><?= date('Y-m-d', strtotime($product["createdDate"])) ?></small>
-                <small class="text-muted"><i class="fas fa-eye mr-1"></i><?= $product["viewCount"] ?></small>
-              </div>
-            </div>
-          </div>
-        </div>
-      <?php 
+          $badge = $isTc ? "熱門" : "Trending";
+          $colClass = 'col-lg-3 col-md-4 col-6';
+          $showViews = true;
+          require 'views/partials/product-card.php';
         endforeach;
       endif;
       ?>
     </div>
   </div>
 
-  <!-- Latest Products -->
-  <div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h5 class="section-title mb-0"><?= Lang::$lang["latest"] ?></h5>
-      <a href="<?= Url::getDomain() ?>search/" class="text-muted small font-weight-medium"><?= Lang::$lang["viewAll"] ?> <i class="fas fa-arrow-right ml-1"></i></a>
+  <!-- Latest -->
+  <div class="pt-2 pb-3">
+    <div class="d-flex flex-wrap justify-content-between align-items-center pt-2 pb-4">
+      <h2 class="h3 mb-0"><?= Lang::$lang["latest"] ?></h2>
+      <a class="font-size-sm text-accent" href="<?= Url::getDomain() ?>search/"><?= Lang::$lang["viewAll"] ?><i class="czi-arrow-right font-size-xs align-middle ml-1"></i></a>
     </div>
-    <div class="row">
+    <div class="row mx-n2">
       <?php
       $latestProducts = $this->productController->getLatestProducts(12);
       if (!empty($latestProducts)):
         foreach ($latestProducts as $product):
-      ?>
-        <div class="col-lg-2 col-md-4 col-6 mb-3">
-          <div class="card product-card h-100">
-            <a href="<?= Url::getDomain() ?>product/<?= $product["refId"] ?>/">
-              <img src="<?= $product["image"] ?: Url::getDomain() . 'images/test.jpg' ?>" class="card-img-top" alt="<?= htmlspecialchars($product["listingTitle"]) ?>">
-            </a>
-            <div class="card-body p-3">
-              <p class="card-text small text-muted mb-1">
-                <a href="<?= Url::SetLink($product["category_seo"]) ?>" class="category-badge"><?= $product["category_name"] ?></a>
-              </p>
-              <h6 class="card-title mb-1">
-                <a href="<?= Url::getDomain() ?>product/<?= $product["refId"] ?>/" class="text-dark"><?= htmlspecialchars(mb_substr($product["listingTitle"], 0, 30)) ?></a>
-              </h6>
-              <p class="product-price mb-0">$<?= number_format($product["price"]) ?></p>
-              <small class="text-muted"><i class="far fa-clock mr-1"></i><?= date('Y-m-d', strtotime($product["createdDate"])) ?></small>
-            </div>
-          </div>
-        </div>
-      <?php 
+          $colClass = 'col-lg-2 col-md-4 col-6';
+          $showViews = false;
+          require 'views/partials/product-card.php';
         endforeach;
       else:
+        for ($i = 0; $i < 12; $i++):
+          $product = [
+            'refId' => 0,
+            'image' => '',
+            'listingTitle' => $isTc ? "示例商品" : "Sample Item",
+            'price' => 99,
+            'category_name' => Lang::$lang["categories"],
+          ];
+          $colClass = 'col-lg-2 col-md-4 col-6';
+          $showViews = false;
+          require 'views/partials/product-card.php';
+        endfor;
+      endif;
       ?>
-        <?php for ($i = 0; $i < 12; $i++): ?>
-          <div class="col-lg-2 col-md-4 col-6 mb-3">
-            <div class="card product-card h-100">
-              <img src="<?= Url::getDomain() ?>images/test.jpg" class="card-img-top" alt="Sample">
-              <div class="card-body p-3">
-                <p class="card-text small text-muted mb-1"><span class="category-badge"><?= Lang::$lang["categories"] ?></span></p>
-                <h6 class="card-title mb-1 text-dark"><?= Session::get("lang") == "tc" ?"示例商品 - 點擊查看詳情" : "Sample Item - Click for details" ?></h6>
-                <p class="product-price mb-0">$99</p>
-                <small class="text-muted"><?= date('Y-m-d') ?></small>
-              </div>
-            </div>
-          </div>
-        <?php endfor; ?>
-      <?php endif; ?>
     </div>
   </div>
 
-  <!-- Recently Viewed (for logged in users) -->
   <?php if ($isLoggedIn): ?>
-  <div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h5 class="section-title mb-0"><?= Session::get("lang") == "tc" ? "👁️ 最近瀏覽" : "👁️ Recently Viewed" ?></h5>
-      <a href="<?= Url::getDomain() ?>search-history/" class="text-muted small font-weight-medium"><?= Session::get("lang") == "tc" ? "查看全部" : "View all" ?> <i class="fas fa-arrow-right ml-1"></i></a>
+  <div class="pt-2 pb-3">
+    <div class="d-flex flex-wrap justify-content-between align-items-center pt-2 pb-4">
+      <h2 class="h3 mb-0"><i class="czi-eye text-accent mr-1"></i><?= $isTc ? "最近瀏覽" : "Recently Viewed" ?></h2>
+      <a class="font-size-sm text-accent" href="<?= Url::getDomain() ?>search-history/"><?= $isTc ? "查看全部" : "View all" ?><i class="czi-arrow-right font-size-xs align-middle ml-1"></i></a>
     </div>
-    <div class="row" id="recentlyViewedContainer">
+    <div class="row mx-n2" id="recentlyViewedContainer">
       <div class="col-12 text-center py-4">
-        <div class="spinner-border text-warning" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
+        <div class="spinner-border text-accent" role="status"><span class="sr-only">Loading...</span></div>
       </div>
     </div>
   </div>
   <?php endif; ?>
 
   <!-- How It Works -->
-  <div class="bg-white py-5">
-    <div class="container">
-      <h5 class="section-title text-center"><?= Session::get("lang") == "tc" ? "點樣運作" : "How It Works" ?></h5>
-      <div class="row text-center">
-        <div class="col-md-4 mb-4">
-          <div class="p-4">
-            <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:80px;height:80px;background:#FFF8DC;">
-              <i class="fas fa-camera" style="color:#DAA520;font-size:2rem;"></i>
-            </div>
-            <h5><?= Session::get("lang") == "tc" ? "影相刊登" : "Snap & List" ?></h5>
-            <p class="text-muted"><?= Session::get("lang") == "tc" ? "用手機影低你想賣嘅物品，幾步就刊登完成" : "Take a photo of your item and list it in minutes" ?></p>
+  <div class="bg-secondary rounded-lg p-4 p-md-5 mt-4">
+    <h2 class="h3 text-center mb-4"><?= $isTc ? "點樣運作" : "How It Works" ?></h2>
+    <div class="row text-center">
+      <div class="col-md-4 mb-4 mb-md-0">
+        <div class="media d-block d-md-flex flex-md-column align-items-center">
+          <i class="czi-camera text-primary mb-3" style="font-size:2.5rem;"></i>
+          <div class="media-body">
+            <h5 class="text-dark"><?= $isTc ? "影相刊登" : "Snap & List" ?></h5>
+            <p class="font-size-sm text-muted mb-0"><?= $isTc ? "用手機影低你想賣嘅物品，幾步就刊登完成" : "Take a photo and list in minutes" ?></p>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
-          <div class="p-4">
-            <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:80px;height:80px;background:#FFF8DC;">
-              <i class="fas fa-comments" style="color:#DAA520;font-size:2rem;"></i>
-            </div>
-            <h5><?= Session::get("lang") == "tc" ? "傾價錢" : "Chat & Negotiate" ?></h5>
-            <p class="text-muted"><?= Session::get("lang") == "tc" ? "買賣雙方直接溝通，傾好價錢就成交" : "Buyers and sellers chat directly to agree on a price" ?></p>
+      </div>
+      <div class="col-md-4 mb-4 mb-md-0">
+        <div class="media d-block d-md-flex flex-md-column align-items-center">
+          <i class="czi-comment text-primary mb-3" style="font-size:2.5rem;"></i>
+          <div class="media-body">
+            <h5 class="text-dark"><?= $isTc ? "傾價錢" : "Chat & Negotiate" ?></h5>
+            <p class="font-size-sm text-muted mb-0"><?= $isTc ? "買賣雙方直接溝通，傾好價錢就成交" : "Chat directly to agree on a price" ?></p>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
-          <div class="p-4">
-            <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:80px;height:80px;background:#FFF8DC;">
-              <i class="fas fa-handshake" style="color:#DAA520;font-size:2rem;"></i>
-            </div>
-            <h5><?= Session::get("lang") == "tc" ? "當面交收" : "Meet & Exchange" ?></h5>
-            <p class="text-muted"><?= Session::get("lang") == "tc" ? "約好時間地點當面交收，安全又放心" : "Arrange a meetup for a safe and secure transaction" ?></p>
+      </div>
+      <div class="col-md-4">
+        <div class="media d-block d-md-flex flex-md-column align-items-center">
+          <i class="czi-delivery text-primary mb-3" style="font-size:2.5rem;"></i>
+          <div class="media-body">
+            <h5 class="text-dark"><?= $isTc ? "當面交收" : "Meet & Exchange" ?></h5>
+            <p class="font-size-sm text-muted mb-0"><?= $isTc ? "約好時間地點當面交收，安全又放心" : "Arrange a safe meetup" ?></p>
           </div>
         </div>
       </div>
@@ -189,7 +148,6 @@
 </div>
 
 <script>
-// Load recently viewed products
 $(document).ready(function() {
   <?php if ($isLoggedIn): ?>
   $.get('<?= Url::getDomain() ?>api/get-recently-viewed/', function(data) {
@@ -197,23 +155,19 @@ $(document).ready(function() {
     container.empty();
     if (data.products && data.products.length > 0) {
       $.each(data.products, function(i, product) {
-        var col = $('<div class="col-lg-2 col-md-4 col-6 mb-3"></div>');
-        var card = $('<div class="card product-card h-100"></div>');
-        var link = $('<a href="<?= Url::getDomain() ?>product/' + product.refId + '/"></a>');
-        var img = $('<img src="' + (product.image || '<?= Url::getDomain() ?>images/test.jpg') + '" class="card-img-top" alt="' + product.listingTitle + '">');
-        link.append(img);
-        var body = $('<div class="card-body p-3"></div>');
-        body.append('<p class="card-text small text-muted mb-1"><span class="category-badge">' + (product.category_name || '') + '</span></p>');
-        body.append('<h6 class="card-title mb-1"><a href="<?= Url::getDomain() ?>product/' + product.refId + '/" class="text-dark">' + product.listingTitle.substring(0, 30) + '</a></h6>');
-        body.append('<p class="product-price mb-0">$' + Number(product.price).toLocaleString() + '</p>');
-        body.append('<small class="text-muted"><i class="far fa-clock mr-1"></i>' + product.createdDate.substring(0, 10) + '</small>');
-        card.append(link);
-        card.append(body);
-        col.append(card);
-        container.append(col);
+        var price = Number(product.price).toLocaleString();
+        var img = product.image || '<?= Url::getDomain() ?>images/test.jpg';
+        var html = '<div class="col-lg-2 col-md-4 col-6 px-2 mb-4">' +
+          '<div class="card product-card">' +
+          '<a class="card-img-top d-block overflow-hidden" href="<?= Url::getDomain() ?>product/' + product.refId + '/"><img src="' + img + '" alt=""></a>' +
+          '<div class="card-body py-2">' +
+          '<h3 class="product-title font-size-sm"><a href="<?= Url::getDomain() ?>product/' + product.refId + '/">' + product.listingTitle.substring(0, 30) + '</a></h3>' +
+          '<div class="product-price"><span class="text-accent">$' + price + '</span></div>' +
+          '</div></div><hr class="d-sm-none"></div>';
+        container.append(html);
       });
     } else {
-      container.html('<div class="col-12 text-center py-4"><i class="fas fa-history fa-3x text-muted mb-3"></i><p class="text-muted"><?= Session::get("lang") == "tc" ? "暫無瀏覽記錄" : "No recently viewed items" ?></p></div>');
+      container.html('<div class="col-12 text-center py-4"><i class="czi-time" style="font-size:3rem;color:#ccc;"></i><p class="text-muted mt-3"><?= $isTc ? "暫無瀏覽記錄" : "No recently viewed items" ?></p></div>');
     }
   });
   <?php endif; ?>

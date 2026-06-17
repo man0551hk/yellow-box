@@ -1,103 +1,103 @@
-<div class="container py-4">
+<?php
+$isTc = Session::get("lang") == "tc";
+$followerCount = $this->userController->getFollowerCount($profileUser['userId']);
+$followingCount = $this->userController->getFollowingCount($profileUser['userId']);
+?>
+
+<div class="page-title-overlap bg-img pt-4">
+  <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
+    <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-dark flex-lg-nowrap justify-content-center justify-content-lg-start">
+          <li class="breadcrumb-item"><a class="text-nowrap" href="<?= Url::getDomain() ?>"><i class="czi-home"></i>Home</a></li>
+          <li class="breadcrumb-item text-nowrap active" aria-current="page"><?= htmlspecialchars($profileUser['firstName'] . ' ' . $profileUser['lastName']) ?></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="order-lg-1 pr-lg-4 text-center text-lg-left">
+      <h1 class="h3 text-dark mb-0"><?= htmlspecialchars($profileUser['firstName'] . ' ' . $profileUser['lastName']) ?></h1>
+    </div>
+  </div>
+</div>
+
+<div class="container pb-5 mb-2 mb-md-4">
   <div class="row">
-    <div class="col-lg-3 mb-4">
-      <div class="card border-0 shadow-sm text-center">
-        <div class="card-body p-4">
-          <?php if ($profileUser['profilePic']): ?>
-            <img src="<?= $profileUser['profilePic'] ?>" class="avatar avatar-xl mb-3" style="border:4px solid #FFF8DC;">
-          <?php else: ?>
-            <div class="avatar avatar-xl d-flex align-items-center justify-content-center text-white font-weight-bold mx-auto mb-3" style="font-size:2.5rem;background:linear-gradient(135deg,#FFD700,#FFA500);border:4px solid #FFF8DC;">
-              <?= strtoupper(substr($profileUser['firstName'], 0, 1)) ?>
+    <aside class="col-lg-3 pt-4 pt-lg-0">
+      <div class="cz-sidebar-static rounded-lg box-shadow-lg px-0 pb-0 mb-5 mb-lg-0">
+        <div class="px-4 mb-4">
+          <div class="media align-items-center flex-column text-center">
+            <div class="img-thumbnail rounded-circle position-relative mb-3" style="width:6.375rem;">
+              <?php if ($profileUser['profilePic']): ?>
+                <img class="rounded-circle" src="<?= $profileUser['profilePic'] ?>" alt="">
+              <?php else: ?>
+                <div class="rounded-circle bg-secondary text-accent d-flex align-items-center justify-content-center font-weight-bold" style="width:6.375rem;height:6.375rem;font-size:2rem;">
+                  <?= strtoupper(substr($profileUser['firstName'], 0, 1)) ?>
+                </div>
+              <?php endif; ?>
             </div>
-          <?php endif; ?>
-          <h5 class="font-weight-bold" style="color:#332c24;"><?= htmlspecialchars($profileUser['firstName'] . ' ' . $profileUser['lastName']) ?></h5>
-          <p class="text-muted small"><i class="far fa-calendar-alt mr-1"></i><?= Lang::$lang['memberSince'] ?> <?= date('Y-m') ?></p>
-          
-          <?php
-          $followerCount = $this->userController->getFollowerCount($profileUser['userId']);
-          $followingCount = $this->userController->getFollowingCount($profileUser['userId']);
-          ?>
-          <div class="profile-stats">
-            <div class="profile-stat-item">
-              <div class="profile-stat-number"><?= count($products) ?></div>
-              <div class="profile-stat-label"><?= Lang::$lang['products'] ?></div>
+            <h3 class="font-size-base mb-1"><?= htmlspecialchars($profileUser['firstName'] . ' ' . $profileUser['lastName']) ?></h3>
+            <span class="text-muted font-size-sm"><i class="czi-time mr-1"></i><?= Lang::$lang['memberSince'] ?> <?= date('Y-m') ?></span>
+          </div>
+        </div>
+
+        <div class="px-4 pb-3">
+          <div class="row text-center">
+            <div class="col-4">
+              <div class="font-weight-medium text-dark"><?= count($products) ?></div>
+              <div class="font-size-xs text-muted"><?= Lang::$lang['products'] ?></div>
             </div>
-            <div class="profile-stat-item">
-              <div class="profile-stat-number"><?= $followerCount ?></div>
-              <div class="profile-stat-label"><?= Lang::$lang['followers'] ?></div>
+            <div class="col-4">
+              <div class="font-weight-medium text-dark"><?= $followerCount ?></div>
+              <div class="font-size-xs text-muted"><?= Lang::$lang['followers'] ?></div>
             </div>
-            <div class="profile-stat-item">
-              <div class="profile-stat-number"><?= $followingCount ?></div>
-              <div class="profile-stat-label"><?= Session::get("lang") == "tc" ? "關注中" : "Following" ?></div>
+            <div class="col-4">
+              <div class="font-weight-medium text-dark"><?= $followingCount ?></div>
+              <div class="font-size-xs text-muted"><?= $isTc ? "關注中" : "Following" ?></div>
             </div>
           </div>
-          
-          <?php if ($profileUser['responseRate'] > 0 || $profileUser['responseTime'] || $profileUser['lastActive']): ?>
-            <div class="mt-3 small text-muted text-left">
-              <?php if ($profileUser['responseRate'] > 0): ?>
-                <div class="mb-1"><i class="fas fa-reply mr-1" style="color:#42d697;"></i><?= $profileUser['responseRate'] ?>% <?= Session::get("lang") == "tc" ? "回覆率" : "response rate" ?></div>
-              <?php endif; ?>
-              <?php if ($profileUser['responseTime']): ?>
-                <div class="mb-1"><i class="fas fa-clock mr-1" style="color:#69b3fe;"></i><?= $profileUser['responseTime'] ?></div>
-              <?php endif; ?>
-              <?php if ($profileUser['lastActive']): ?>
-                <div><i class="fas fa-circle mr-1" style="color:#42d697;font-size:8px;vertical-align:middle;"></i><?= $profileUser['lastActive'] ?></div>
-              <?php endif; ?>
-            </div>
-          <?php endif; ?>
-          
-          <?php if (Session::get('userId')): ?>
+        </div>
+
+        <?php if (Session::get('userId')): ?>
+          <div class="px-4 pb-4">
             <?php if (Session::get('userId') == $profileUser['userId']): ?>
-              <a href="<?= Url::getDomain() ?>settings/" class="btn btn-outline-secondary btn-block mt-3">
-                <i class="fas fa-cog mr-2"></i><?= Lang::$lang['settings'] ?>
+              <a href="<?= Url::getDomain() ?>settings/" class="btn btn-outline-accent btn-block btn-sm">
+                <i class="czi-settings mr-1"></i><?= Lang::$lang['settings'] ?>
               </a>
             <?php else: ?>
-              <a href="<?= Url::getDomain() ?>inbox/<?= $profileUser['userId'] ?>/" class="btn btn-yellow btn-block mt-3 btn-shadow">
-                <i class="fas fa-comment mr-2"></i><?= Lang::$lang['chat'] ?>
+              <a href="<?= Url::getDomain() ?>inbox/<?= $profileUser['userId'] ?>/" class="btn btn-primary btn-block btn-shadow btn-sm mb-2">
+                <i class="czi-comment mr-1"></i><?= Lang::$lang['chat'] ?>
               </a>
-              <button class="btn btn-outline-primary btn-block mt-2" onclick="toggleFollow(<?= $profileUser['userId'] ?>)">
-                <i class="fas fa-user-plus mr-1"></i><span id="followBtnText"><?= Session::get("lang") == "tc" ? "關注" : "Follow" ?></span>
+              <button class="btn btn-outline-accent btn-block btn-sm mb-2" onclick="toggleFollow(<?= $profileUser['userId'] ?>)">
+                <i class="czi-user mr-1"></i><span id="followBtnText"><?= $isTc ? "關注" : "Follow" ?></span>
               </button>
-              <button class="btn btn-outline-danger btn-block mt-2" onclick="toggleBlock(<?= $profileUser['userId'] ?>)">
-                <i class="fas fa-ban mr-1"></i><?= Session::get("lang") == "tc" ? "封鎖" : "Block" ?>
+              <button class="btn btn-outline-danger btn-block btn-sm" onclick="toggleBlock(<?= $profileUser['userId'] ?>)">
+                <i class="czi-close-circle mr-1"></i><?= $isTc ? "封鎖" : "Block" ?>
               </button>
             <?php endif; ?>
-          <?php endif; ?>
-        </div>
+          </div>
+        <?php endif; ?>
       </div>
-    </div>
-    
-    <div class="col-lg-9">
-      <h5 class="section-title"><?= Lang::$lang['products'] ?></h5>
-      
+    </aside>
+
+    <section class="col-lg-9">
+      <div class="d-flex justify-content-between align-items-center pt-lg-3 pb-4 mb-3">
+        <h2 class="h5 mb-0"><?= Lang::$lang['products'] ?></h2>
+      </div>
+
       <?php if (!empty($products)): ?>
-        <div class="row">
-          <?php foreach ($products as $product): ?>
-            <div class="col-lg-3 col-md-4 col-6 mb-3">
-              <div class="card product-card h-100">
-                <a href="<?= Url::getDomain() ?>product/<?= $product['refId'] ?>/">
-                  <img src="<?= $product['image'] ? Url::getDomain() . $product['image'] : Url::getDomain() . 'images/test.jpg' ?>" class="card-img-top" alt="<?= htmlspecialchars($product['listingTitle']) ?>">
-                </a>
-                <div class="card-body p-3">
-                  <p class="card-text small text-muted mb-1">
-                    <span class="category-badge"><?= $product['category_name'] ?></span>
-                  </p>
-                  <h6 class="card-title mb-1">
-                    <a href="<?= Url::getDomain() ?>product/<?= $product['refId'] ?>/" class="text-dark"><?= htmlspecialchars(mb_substr($product['listingTitle'], 0, 30)) ?></a>
-                  </h6>
-                  <p class="product-price mb-0">$<?= number_format($product['price']) ?></p>
-                </div>
-              </div>
-            </div>
-          <?php endforeach; ?>
+        <div class="row mx-n2">
+          <?php foreach ($products as $product):
+            $colClass = 'col-lg-3 col-md-4 col-6';
+            require 'views/partials/product-card.php';
+          endforeach; ?>
         </div>
       <?php else: ?>
-        <div class="empty-state">
-          <i class="fas fa-box-open"></i>
-          <h5><?= Lang::$lang['noProducts'] ?></h5>
+        <div class="text-center py-5">
+          <i class="czi-bag" style="font-size:4rem;color:#ccc;"></i>
+          <h5 class="mt-3"><?= Lang::$lang['noProducts'] ?></h5>
         </div>
       <?php endif; ?>
-    </div>
+    </section>
   </div>
 </div>
 
@@ -105,33 +105,22 @@
 function toggleFollow(userId) {
   $.post('<?= Url::getDomain() ?>api/toggle-follow/', {followingId: userId}, function(data) {
     if (data.success) {
-      if (data.following) {
-        $('#followBtnText').text('<?= Session::get("lang") == "tc" ? "已關注" : "Following" ?>');
-        showToast('<?= Session::get("lang") == "tc" ? "已關注" : "Following" ?>', 'success');
-      } else {
-        $('#followBtnText').text('<?= Session::get("lang") == "tc" ? "關注" : "Follow" ?>');
-        showToast('<?= Session::get("lang") == "tc" ? "已取消關注" : "Unfollowed" ?>', 'info');
-      }
+      $('#followBtnText').text(data.following ? '<?= $isTc ? "已關注" : "Following" ?>' : '<?= $isTc ? "關注" : "Follow" ?>');
+      showToast(data.following ? '<?= $isTc ? "已關注" : "Following" ?>' : '<?= $isTc ? "已取消關注" : "Unfollowed" ?>', 'success');
     }
   });
 }
-
 function toggleBlock(userId) {
-  if (confirm('<?= Session::get("lang") == "tc" ? "確定要封鎖此用戶？" : "Block this user?" ?>')) {
+  if (confirm('<?= $isTc ? "確定要封鎖此用戶？" : "Block this user?" ?>')) {
     $.post('<?= Url::getDomain() ?>api/toggle-block/', {blockedUserId: userId}, function(data) {
-      if (data.success) {
-        showToast(data.blocked ? '<?= Session::get("lang") == "tc" ? "已封鎖" : "Blocked" ?>' : '<?= Session::get("lang") == "tc" ? "已解除封鎖" : "Unblocked" ?>', 'success');
-      }
+      if (data.success) showToast(data.blocked ? '<?= $isTc ? "已封鎖" : "Blocked" ?>' : '<?= $isTc ? "已解除封鎖" : "Unblocked" ?>', 'success');
     });
   }
 }
-
 $(document).ready(function() {
   <?php if (Session::get('userId') && Session::get('userId') != $profileUser['userId']): ?>
   $.get('<?= Url::getDomain() ?>api/is-following/', {followingId: <?= $profileUser['userId'] ?>}, function(data) {
-    if (data.following) {
-      $('#followBtnText').text('<?= Session::get("lang") == "tc" ? "已關注" : "Following" ?>');
-    }
+    if (data.following) $('#followBtnText').text('<?= $isTc ? "已關注" : "Following" ?>');
   });
   <?php endif; ?>
 });

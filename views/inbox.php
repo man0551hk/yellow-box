@@ -1,92 +1,103 @@
-<div class="container py-4">
+<?php $activePage = 'inbox'; $isTc = Session::get("lang") == "tc"; ?>
+
+<div class="page-title-overlap bg-img pt-4">
+  <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
+    <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-dark flex-lg-nowrap justify-content-center justify-content-lg-start">
+          <li class="breadcrumb-item"><a class="text-nowrap" href="<?= Url::getDomain() ?>"><i class="czi-home"></i>Home</a></li>
+          <li class="breadcrumb-item text-nowrap active" aria-current="page"><?= Lang::$lang['myMessages'] ?></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="order-lg-1 pr-lg-4 text-center text-lg-left">
+      <h1 class="h3 text-dark mb-0"><?= Lang::$lang['myMessages'] ?></h1>
+    </div>
+  </div>
+</div>
+
+<div class="container pb-5 mb-2 mb-md-4">
   <div class="row">
-    <!-- Conversations List -->
-    <div class="col-lg-4 mb-4">
-      <div class="card border-0 shadow-sm">
-        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-          <h6 class="mb-0 font-weight-bold" style="color:#332c24;"><i class="fas fa-comments mr-2" style="color:#DAA520;"></i><?= Lang::$lang['myMessages'] ?></h6>
+    <div class="col-lg-4 mb-4 mb-lg-0">
+      <div class="cz-sidebar-static rounded-lg box-shadow-lg px-0 overflow-hidden">
+        <div class="bg-secondary px-4 py-3">
+          <h3 class="font-size-sm mb-0 text-muted"><i class="czi-comment mr-1"></i><?= Lang::$lang['myMessages'] ?></h3>
         </div>
-        <div class="card-body p-0 chat-sidebar">
+        <div data-simplebar data-simplebar-auto-hide="false" style="max-height:28rem;">
           <?php if (!empty($conversations)): ?>
             <?php foreach ($conversations as $conv): ?>
-              <a href="<?= Url::getDomain() ?>inbox/<?= $conv['otherUserId'] ?>/" class="d-flex align-items-center p-3 text-dark text-decoration-none border-bottom conversation-item <?= isset($activeConversation) && $activeConversation == $conv['otherUserId'] ? 'active' : '' ?>">
-                <div class="mr-3 position-relative">
+              <a href="<?= Url::getDomain() ?>inbox/<?= $conv['otherUserId'] ?>/" class="d-flex align-items-center px-4 py-3 text-dark text-decoration-none border-bottom<?= isset($activeConversation) && $activeConversation == $conv['otherUserId'] ? ' bg-secondary' : '' ?>">
+                <div class="mr-3 position-relative flex-shrink-0">
                   <?php if ($conv['user']['profilePic']): ?>
-                    <img src="<?= $conv['user']['profilePic'] ?>" class="avatar">
+                    <img src="<?= $conv['user']['profilePic'] ?>" class="rounded-circle" width="44" height="44" alt="">
                   <?php else: ?>
-                    <div class="avatar d-flex align-items-center justify-content-center text-white font-weight-bold" style="background:linear-gradient(135deg,#FFD700,#FFA500);">
+                    <div class="rounded-circle bg-accent text-white d-flex align-items-center justify-content-center font-weight-bold" style="width:44px;height:44px;">
                       <?= strtoupper(substr($conv['user']['firstName'], 0, 1)) ?>
                     </div>
                   <?php endif; ?>
                   <?php if ($conv['unread'] > 0): ?>
-                    <span class="position-absolute" style="top:-4px;right:-4px;width:10px;height:10px;background:#dc3545;border-radius:50%;border:2px solid #fff;"></span>
+                    <span class="badge badge-danger badge-pill position-absolute" style="top:-4px;right:-4px;"><?= $conv['unread'] ?></span>
                   <?php endif; ?>
                 </div>
                 <div class="flex-grow-1 min-width-0">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <strong class="small"><?= htmlspecialchars($conv['user']['firstName'] . ' ' . $conv['user']['lastName']) ?></strong>
-                    <?php if ($conv['unread'] > 0): ?>
-                      <span class="badge badge-danger badge-pill ml-1"><?= $conv['unread'] ?></span>
-                    <?php endif; ?>
-                  </div>
-                  <small class="text-muted text-truncate d-block mt-1"><?= htmlspecialchars(mb_substr($conv['lastMessage'], 0, 50)) ?></small>
+                  <div class="font-size-sm font-weight-medium"><?= htmlspecialchars($conv['user']['firstName'] . ' ' . $conv['user']['lastName']) ?></div>
+                  <div class="font-size-xs text-muted text-truncate"><?= htmlspecialchars(mb_substr($conv['lastMessage'], 0, 50)) ?></div>
                 </div>
               </a>
             <?php endforeach; ?>
           <?php else: ?>
-            <div class="empty-state">
-              <i class="fas fa-comments"></i>
-              <p><?= Lang::$lang['noMessages'] ?></p>
+            <div class="text-center py-5 px-3">
+              <i class="czi-comment" style="font-size:3rem;color:#ccc;"></i>
+              <p class="text-muted mt-2 mb-0"><?= Lang::$lang['noMessages'] ?></p>
             </div>
           <?php endif; ?>
         </div>
       </div>
     </div>
-    
-    <!-- Chat Area -->
-    <div class="col-lg-8 mb-4">
-      <div class="card border-0 shadow-sm">
+
+    <div class="col-lg-8">
+      <div class="bg-secondary rounded-lg box-shadow-lg overflow-hidden">
         <?php if (isset($otherUser)): ?>
-          <div class="card-header bg-white py-3 d-flex align-items-center">
-            <div class="mr-3">
-              <?php if ($otherUser['profilePic']): ?>
-                <img src="<?= $otherUser['profilePic'] ?>" class="avatar">
-              <?php else: ?>
-                <div class="avatar d-flex align-items-center justify-content-center text-white font-weight-bold" style="background:linear-gradient(135deg,#FFD700,#FFA500);">
-                  <?= strtoupper(substr($otherUser['firstName'], 0, 1)) ?>
-                </div>
-              <?php endif; ?>
-            </div>
+          <div class="px-4 py-3 border-bottom d-flex align-items-center bg-light">
+            <?php if ($otherUser['profilePic']): ?>
+              <img src="<?= $otherUser['profilePic'] ?>" class="rounded-circle mr-3" width="44" height="44" alt="">
+            <?php else: ?>
+              <div class="rounded-circle bg-accent text-white d-flex align-items-center justify-content-center font-weight-bold mr-3" style="width:44px;height:44px;">
+                <?= strtoupper(substr($otherUser['firstName'], 0, 1)) ?>
+              </div>
+            <?php endif; ?>
             <div>
-              <strong style="color:#332c24;"><?= htmlspecialchars($otherUser['firstName'] . ' ' . $otherUser['lastName']) ?></strong>
-              <div class="small text-muted"><i class="fas fa-circle mr-1" style="color:#42d697;font-size:8px;vertical-align:middle;"></i><?= Lang::$lang['online'] ?></div>
+              <strong class="text-dark"><?= htmlspecialchars($otherUser['firstName'] . ' ' . $otherUser['lastName']) ?></strong>
+              <div class="font-size-xs text-muted"><i class="czi-check-circle text-success mr-1"></i><?= Lang::$lang['online'] ?></div>
             </div>
           </div>
-          
-          <div class="card-body chat-messages" id="chatMessages">
+
+          <div class="px-4 py-3 chat-messages" id="chatMessages" style="min-height:20rem;max-height:28rem;overflow-y:auto;" data-simplebar data-simplebar-auto-hide="false">
             <?php if (!empty($messages)): ?>
               <?php foreach ($messages as $msg): ?>
-                <div class="message-bubble <?= $msg['fromUserId'] == Session::get('userId') ? 'message-sent' : 'message-received' ?>">
-                  <div class="small"><?= nl2br(htmlspecialchars($msg['content'])) ?></div>
-                  <div class="small text-muted text-right mt-1" style="font-size:0.7rem;">
-                    <?= date('H:i', strtotime($msg['sentDate'])) ?>
+                <div class="mb-3 d-flex<?= $msg['fromUserId'] == Session::get('userId') ? ' justify-content-end' : '' ?>">
+                  <div class="rounded-lg px-3 py-2 font-size-sm<?= $msg['fromUserId'] == Session::get('userId') ? ' bg-primary text-white' : ' bg-light' ?>" style="max-width:75%;">
+                    <?= nl2br(htmlspecialchars($msg['content'])) ?>
+                    <div class="font-size-xs opacity-75 text-right mt-1"><?= date('H:i', strtotime($msg['sentDate'])) ?></div>
                   </div>
                 </div>
               <?php endforeach; ?>
             <?php endif; ?>
           </div>
-          
-          <div class="card-footer bg-white">
-            <form method="POST" action="" class="d-flex">
-              <input type="text" class="form-control mr-2" name="content" placeholder="<?= Lang::$lang['typeMessage'] ?>" required>
-              <button type="submit" class="btn btn-yellow btn-shadow"><?= Lang::$lang['send'] ?></button>
+
+          <div class="px-4 py-3 border-top bg-light">
+            <form method="POST" action="" class="input-group">
+              <input type="text" class="form-control" name="content" placeholder="<?= Lang::$lang['typeMessage'] ?>" required>
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-primary btn-shadow"><i class="czi-send mr-1"></i><?= Lang::$lang['send'] ?></button>
+              </div>
             </form>
           </div>
         <?php else: ?>
-          <div class="empty-state">
-            <i class="fas fa-comment-dots"></i>
-            <h5><?= Lang::$lang['inboxBanner'] ?></h5>
-            <p><?= Session::get("lang") == "tc" ? "揀一個對話開始傾計" : "Select a conversation to start chatting" ?></p>
+          <div class="text-center py-5">
+            <i class="czi-comment-dots" style="font-size:4rem;color:#ccc;"></i>
+            <h5 class="mt-3"><?= Lang::$lang['inboxBanner'] ?></h5>
+            <p class="text-muted"><?= $isTc ? "揀一個對話開始傾計" : "Select a conversation to start chatting" ?></p>
           </div>
         <?php endif; ?>
       </div>
@@ -95,9 +106,6 @@
 </div>
 
 <script>
-// Scroll to bottom of chat
 var chatMessages = document.getElementById('chatMessages');
-if (chatMessages) {
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
+if (chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
 </script>
