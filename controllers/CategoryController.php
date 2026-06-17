@@ -12,7 +12,7 @@ class CategoryController
   public function GetCategory()
   {
     $fields = array(
-      "id", "name_" . Session::get("lang"),  "seo_" . Session::get("lang")
+      "id", "name_" . Session::get("lang") . " as name", "seo_" . Session::get("lang") . " as seo"
     );
     $condition = " fcId = 0";
     $sortBy = " displayOrder asc";
@@ -20,25 +20,24 @@ class CategoryController
     $categorys = array();
     while ($row = mysqli_fetch_array($fcRs)) {
       $id = $row["id"];
-      $seo =  $row["seo_" . Session::get("lang")];
       $fc = array(
         "id" => $id,
-        "category" => $row["name_" . Session::get("lang")],
-        "seo" => $row["seo_" . Session::get("lang")],
+        "category" => $row["name"],
+        "seo" => $row["seo"],
         "subCategory" => array()
       );
 
-      $fields = array(
-        "id", "name_" . Session::get("lang"),  "seo_" . Session::get("lang")
+      $fields2 = array(
+        "id", "name_" . Session::get("lang") . " as name", "seo_" . Session::get("lang") . " as seo"
       );
-      $condition = " fcId = $id";
-      $sortBy = " displayOrder asc";
-      $scRs = $this->dbController->QueryDB("category", $fields, "query", $condition, "", $sortBy);
+      $condition2 = " fcId = $id";
+      $sortBy2 = " displayOrder asc";
+      $scRs = $this->dbController->QueryDB("category", $fields2, "query", $condition2, "", $sortBy2);
       while ($row2 = mysqli_fetch_array($scRs)) {
         $sc = array(
-          "id" => $id,
-          "category" => $row2["name_" . Session::get("lang")],
-          "seo" => $seo . "/" . $row2["seo_" . Session::get("lang")],
+          "id" => $row2["id"],
+          "category" => $row2["name"],
+          "seo" => $row["seo"] . "/" . $row2["seo"],
         );
         array_push($fc["subCategory"], $sc);
       }
@@ -48,26 +47,40 @@ class CategoryController
     return $categorys;
   }
 
+  public function GetSubCategory($fcId)
+  {
+    $fields = array(
+      "id", "name_" . Session::get("lang") . " as name", "seo_" . Session::get("lang") . " as seo"
+    );
+    $condition = " fcId = $fcId";
+    $sortBy = " displayOrder asc";
+    $rs = $this->dbController->QueryDB("category", $fields, "query", $condition, "", $sortBy);
+    $subs = array();
+    while ($row = mysqli_fetch_array($rs)) {
+      array_push($subs, array(
+        "id" => $row["id"],
+        "category" => $row["name"],
+        "seo" => $row["seo"]
+      ));
+    }
+    return $subs;
+  }
+
+  public function getCategoryBySeo($seo)
+  {
+    $fields = array(
+      "id", "fcId", "name_" . Session::get("lang") . " as name", "seo_" . Session::get("lang") . " as seo"
+    );
+    $condition = " seo_" . Session::get("lang") . " = '" . $this->dbController->escapeString($seo) . "'";
+    $rs = $this->dbController->QueryDB("category", $fields, "query", $condition);
+    return mysqli_fetch_array($rs);
+  }
+
   public function ReturnCategoryMenu($isMobile = false)
   {
-    $target_dir = Url::getPath('config');
-    $fileName = "category.json";
-    $categorys = json_decode(file_get_contents($target_dir .  $fileName));
+    $categorys = $this->GetCategory();
     foreach ($categorys as $fc) {
-      // echo '<li ' . ($isMobile === true ? 'class="item-menu-mobile"' : '')  . '>';
-      // echo '<a href="' . Url::SetLink(Lang::ReturnCorrectLang($fc->seo_tc, $fc->seo_en)) . '">' . Lang::ReturnCorrectLang($fc->name_tc, $fc->name_en) . '</a>';
-      // if (!empty($fc->sub_category) && sizeof($fc->sub_category) > 0) {
-      //   echo '<ul class="sub_menu">';
-      //   foreach ($fc->sub_category as $sc) {
-      //     echo '<a href="' . Url::SetLink(Lang::ReturnCorrectLang($fc->seo_tc, $fc->seo_en) . "/" . Lang::ReturnCorrectLang($sc->seo_tc, $sc->seo_en)) . '">' . Lang::ReturnCorrectLang($sc->name_tc, $sc->name_en) . '</a>';
-      //   }
-      //   echo '</ul>';
-      // }
-      // if ($isMobile === true) {
-      //   echo '<i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>';
-      // }
-      // echo '</li>';
-      echo '<a class="nav-item nav-link active" href="' . Url::SetLink(Lang::ReturnCorrectLang($fc->seo_tc, $fc->seo_en)). '">'. Lang::ReturnCorrectLang($fc->name_tc, $fc->name_en) .'</a>';
+      echo '<a class="nav-item nav-link active" href="' . Url::SetLink($fc["seo"]) . '">' . $fc["category"] . '</a>';
     }
   }
 
@@ -154,3 +167,4 @@ class CategoryController
     return $categorys;
   }
 }
+?>

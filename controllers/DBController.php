@@ -9,6 +9,10 @@ class DBController {
     $this->link = $link;
   }
 
+  public function escapeString($str) {
+    return mysqli_real_escape_string($this->link, $str);
+  }
+
   public function DirectQuery($query) {
     return $this->dbConnection->DoQuery($this->link, $query);
   }

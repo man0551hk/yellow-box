@@ -148,7 +148,7 @@ class Url {
 		return Url::getStaticPath('assets/');
 	}
 	
-	public static function fontsFolderPath($campaign = false, $customPath) {
+	public static function fontsFolderPath($customPath, $campaign = false) {
 		if($campaign) {
 			return Url::getStaticPath($customPath . "/fonts", true);
 		} else {
@@ -156,7 +156,7 @@ class Url {
 		}
 	}
 	
-	public static function imagesFolderPath($campaign = false, $customPath) {
+	public static function imagesFolderPath($customPath, $campaign = false) {
 		if($campaign) {
 			return Url::getStaticPath($customPath . "/images", true);
 		} else {

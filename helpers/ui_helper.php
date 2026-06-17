@@ -1,6 +1,6 @@
 <?php
 class UI {	
-  public static function CreateMenu($url, $name, $subMenu = [], $icon) {
+  public static function CreateMenu($url, $name, $icon, $subMenu = []) {
     if ( Permission::PermissionCheck($name, Session::get("positionId"), "page") ) {
       if (sizeof($subMenu) == 0) {
         echo '<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="'.$url.'" aria-expanded="false"><i class="mdi '.$icon.'"></i><span class="hide-menu">'.$name.'</span></a></li>';

@@ -1,9 +1,9 @@
 <?php
 date_default_timezone_set("Asia/Hong_Kong");
-$domain = 'http://local.beta.yellowbox.com/'; 
-$cookieDomain = 'local.beta.yellowhk.com';
-$imageDomain = 'http://local.image.yellowbox.com/'; 
-$productImageDomain = 'http://local.image.yellowbox.com/'; 
+$domain = 'http://local.beta.yellowhub.com/'; 
+$cookieDomain = 'local.beta.yellowhub.com';
+$imageDomain = 'http://local.beta.yellowhub.com/'; 
+$productImageDomain = 'http://local.beta.yellowhub.com/'; 
 $env = 'local';
 $hostName = "localhost";
 $dbName = "sq_yellowhk";

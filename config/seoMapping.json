@@ -1,50 +1,56 @@
 [
-  {
-    "id": "1",
-    "seo_tc": "玩具",
-    "seo_en": "toys",
-    "type": "category"
-  },
-  {
-    "id": "2",
-    "seo_tc": "電子遊戲",
-    "seo_en": "gaming",
-    "type": "category"
-  },
-  {
-    "id": "3",
-    "seo_tc": "男士服裝",
-    "seo_en": "men-s-cloth",
-    "type": "category"
-  },
-  {
-    "id": "4",
-    "seo_tc": "女士服裝",
-    "seo_en": "women-s-cloth",
-    "type": "category"
-  },
-  {
-    "id": "5",
-    "seo_tc": "手工藝",
-    "seo_en": "arts",
-    "type": "category"
-  },
-  {
-    "id": "6",
-    "seo_tc": "生活用品",
-    "seo_en": "living",
-    "type": "category"
-  },
-  {
-    "id": "7",
-    "seo_tc": "模型",
-    "seo_en": "models",
-    "type": "category"
-  },
-  {
-    "id": "8",
-    "seo_tc": "手辦",
-    "seo_en": "figures",
-    "type": "category"
-  }
+  {"id": "1", "seo_tc": "電子產品", "seo_en": "electronics", "type": "category"},
+  {"id": "2", "seo_tc": "時尚服飾", "seo_en": "fashion", "type": "category"},
+  {"id": "3", "seo_tc": "家居生活", "seo_en": "home-living", "type": "category"},
+  {"id": "4", "seo_tc": "運動用品", "seo_en": "sports", "type": "category"},
+  {"id": "5", "seo_tc": "書籍文具", "seo_en": "books-stationery", "type": "category"},
+  {"id": "6", "seo_tc": "玩具遊戲", "seo_en": "toys-games", "type": "category"},
+  {"id": "7", "seo_tc": "美容健康", "seo_en": "beauty-health", "type": "category"},
+  {"id": "8", "seo_tc": "寵物用品", "seo_en": "pet-supplies", "type": "category"},
+  {"id": "9", "seo_tc": "門票優惠", "seo_en": "tickets-vouchers", "type": "category"},
+  {"id": "10", "seo_tc": "其他", "seo_en": "others", "type": "category"},
+  {"id": "11", "seo_tc": "手機", "seo_en": "mobile-phones", "type": "category"},
+  {"id": "12", "seo_tc": "電腦", "seo_en": "computers", "type": "category"},
+  {"id": "13", "seo_tc": "相機", "seo_en": "cameras", "type": "category"},
+  {"id": "14", "seo_tc": "遊戲機", "seo_en": "gaming", "type": "category"},
+  {"id": "15", "seo_tc": "耳機音響", "seo_en": "headphones-audio", "type": "category"},
+  {"id": "16", "seo_tc": "智能手錶", "seo_en": "smart-watches", "type": "category"},
+  {"id": "21", "seo_tc": "男裝", "seo_en": "mens-fashion", "type": "category"},
+  {"id": "22", "seo_tc": "女裝", "seo_en": "womens-fashion", "type": "category"},
+  {"id": "23", "seo_tc": "手袋", "seo_en": "bags", "type": "category"},
+  {"id": "24", "seo_tc": "鞋類", "seo_en": "shoes", "type": "category"},
+  {"id": "25", "seo_tc": "手錶", "seo_en": "watches", "type": "category"},
+  {"id": "26", "seo_tc": "飾物", "seo_en": "accessories", "type": "category"},
+  {"id": "31", "seo_tc": "傢俬", "seo_en": "furniture", "type": "category"},
+  {"id": "32", "seo_tc": "廚房用品", "seo_en": "kitchen", "type": "category"},
+  {"id": "33", "seo_tc": "家電", "seo_en": "appliances", "type": "category"},
+  {"id": "34", "seo_tc": "裝飾", "seo_en": "decor", "type": "category"},
+  {"id": "41", "seo_tc": "健身器材", "seo_en": "fitness", "type": "category"},
+  {"id": "42", "seo_tc": "戶外運動", "seo_en": "outdoor", "type": "category"},
+  {"id": "43", "seo_tc": "球類運動", "seo_en": "ball-sports", "type": "category"},
+  {"id": "44", "seo_tc": "水上運動", "seo_en": "water-sports", "type": "category"},
+  {"id": "51", "seo_tc": "教科書", "seo_en": "textbooks", "type": "category"},
+  {"id": "52", "seo_tc": "小說", "seo_en": "fiction", "type": "category"},
+  {"id": "53", "seo_tc": "文具", "seo_en": "stationery", "type": "category"},
+  {"id": "54", "seo_tc": "漫畫", "seo_en": "comics", "type": "category"},
+  {"id": "61", "seo_tc": "模型", "seo_en": "models", "type": "category"},
+  {"id": "62", "seo_tc": "board-games", "seo_en": "board-games", "type": "category"},
+  {"id": "63", "seo_tc": "公仔", "seo_en": "plush-toys", "type": "category"},
+  {"id": "64", "seo_tc": "兒童玩具", "seo_en": "kids-toys", "type": "category"},
+  {"id": "71", "seo_tc": "護膚品", "seo_en": "skincare", "type": "category"},
+  {"id": "72", "seo_tc": "化妝品", "seo_en": "cosmetics", "type": "category"},
+  {"id": "73", "seo_tc": "香水", "seo_en": "fragrance", "type": "category"},
+  {"id": "74", "seo_tc": "保健食品", "seo_en": "health-supplements", "type": "category"},
+  {"id": "81", "seo_tc": "狗用品", "seo_en": "dog-supplies", "type": "category"},
+  {"id": "82", "seo_tc": "貓用品", "seo_en": "cat-supplies", "type": "category"},
+  {"id": "83", "seo_tc": "寵物食品", "seo_en": "pet-food", "type": "category"},
+  {"id": "84", "seo_tc": "其他寵物", "seo_en": "other-pets", "type": "category"},
+  {"id": "91", "seo_tc": "演唱會門票", "seo_en": "concert-tickets", "type": "category"},
+  {"id": "92", "seo_tc": "景點門票", "seo_en": "attraction-tickets", "type": "category"},
+  {"id": "93", "seo_tc": "優惠券", "seo_en": "vouchers", "type": "category"},
+  {"id": "94", "seo_tc": "現金券", "seo_en": "gift-cards", "type": "category"},
+  {"id": "101", "seo_tc": "免費", "seo_en": "free-items", "type": "category"},
+  {"id": "102", "seo_tc": "徵求", "seo_en": "wanted", "type": "category"},
+  {"id": "103", "seo_tc": "服務", "seo_en": "services", "type": "category"},
+  {"id": "104", "seo_tc": "招聘", "seo_en": "jobs", "type": "category"}
 ]

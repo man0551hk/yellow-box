@@ -4,7 +4,7 @@ class DbConnection {
   public $link;
 
   public function __construct() {
-    $this->link = $this->Getconnection();
+    $this->link = $this->GetConnection();
   }
 
   public function GetConnection() {  
@@ -12,6 +12,7 @@ class DbConnection {
     $link = mysqli_connect($hostName, $userName, $password, $dbName);
     mysqli_query($link, "SET NAMES 'utf8'");
     mysqli_query($link, "SET time_zone = '+8:00';");
+    mysqli_query($link, "SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
     return $link;
   }
 

@@ -1,100 +1,186 @@
 [
   {
     "id": 1,
-    "name_en": "Toys",
-    "name_tc": "玩具",
+    "name_en": "Electronics",
+    "name_tc": "電子產品",
     "fcId": "0",
     "image": "",
     "description_en": "",
     "description_tc": "",
-    "seo_en": "toys",
-    "seo_tc": "玩具",
+    "seo_en": "electronics",
+    "seo_tc": "電子產品",
     "displayOrder": 1,
     "sub_category": [
-      {
-        "id": 7,
-        "name_en": "Models",
-        "name_tc": "模型",
-        "fcId": 1,
-        "image": "",
-        "description_en": "",
-        "description_tc": "",
-        "seo_en": "models",
-        "seo_tc": "模型",
-        "displayOrder": 1
-      },
-      {
-        "id": "8",
-        "name_en": "Figures",
-        "name_tc": "手辦",
-        "fcId": 1,
-        "image": "",
-        "description_en": "",
-        "description_tc": "",
-        "seo_en": "figures",
-        "seo_tc": "手辦",
-        "displayOrder": 2
-      }
+      {"id": 11, "name_en": "Mobile Phones", "name_tc": "手機", "fcId": 1, "seo_en": "mobile-phones", "seo_tc": "手機", "displayOrder": 1},
+      {"id": 12, "name_en": "Computers", "name_tc": "電腦", "fcId": 1, "seo_en": "computers", "seo_tc": "電腦", "displayOrder": 2},
+      {"id": 13, "name_en": "Cameras", "name_tc": "相機", "fcId": 1, "seo_en": "cameras", "seo_tc": "相機", "displayOrder": 3},
+      {"id": 14, "name_en": "Gaming", "name_tc": "遊戲機", "fcId": 1, "seo_en": "gaming", "seo_tc": "遊戲機", "displayOrder": 4},
+      {"id": 15, "name_en": "Headphones & Audio", "name_tc": "耳機音響", "fcId": 1, "seo_en": "headphones-audio", "seo_tc": "耳機音響", "displayOrder": 5},
+      {"id": 16, "name_en": "Smart Watches", "name_tc": "智能手錶", "fcId": 1, "seo_en": "smart-watches", "seo_tc": "智能手錶", "displayOrder": 6}
     ]
   },
   {
     "id": 2,
-    "name_en": "Gaming",
-    "name_tc": "電子遊戲",
+    "name_en": "Fashion",
+    "name_tc": "時尚服飾",
     "fcId": "0",
     "image": "",
     "description_en": "",
     "description_tc": "",
-    "seo_en": "gaming",
-    "seo_tc": "電子遊戲",
-    "displayOrder": 2
+    "seo_en": "fashion",
+    "seo_tc": "時尚服飾",
+    "displayOrder": 2,
+    "sub_category": [
+      {"id": 21, "name_en": "Men's Fashion", "name_tc": "男裝", "fcId": 2, "seo_en": "mens-fashion", "seo_tc": "男裝", "displayOrder": 1},
+      {"id": 22, "name_en": "Women's Fashion", "name_tc": "女裝", "fcId": 2, "seo_en": "womens-fashion", "seo_tc": "女裝", "displayOrder": 2},
+      {"id": 23, "name_en": "Bags", "name_tc": "手袋", "fcId": 2, "seo_en": "bags", "seo_tc": "手袋", "displayOrder": 3},
+      {"id": 24, "name_en": "Shoes", "name_tc": "鞋類", "fcId": 2, "seo_en": "shoes", "seo_tc": "鞋類", "displayOrder": 4},
+      {"id": 25, "name_en": "Watches", "name_tc": "手錶", "fcId": 2, "seo_en": "watches", "seo_tc": "手錶", "displayOrder": 5},
+      {"id": 26, "name_en": "Accessories", "name_tc": "飾物", "fcId": 2, "seo_en": "accessories", "seo_tc": "飾物", "displayOrder": 6}
+    ]
   },
   {
     "id": 3,
-    "name_en": "Men's Cloth",
-    "name_tc": "男士服裝",
+    "name_en": "Home & Living",
+    "name_tc": "家居生活",
     "fcId": "0",
     "image": "",
     "description_en": "",
     "description_tc": "",
-    "seo_en": "men-s-cloth",
-    "seo_tc": "男士服裝",
-    "displayOrder": 3
+    "seo_en": "home-living",
+    "seo_tc": "家居生活",
+    "displayOrder": 3,
+    "sub_category": [
+      {"id": 31, "name_en": "Furniture", "name_tc": "傢俬", "fcId": 3, "seo_en": "furniture", "seo_tc": "傢俬", "displayOrder": 1},
+      {"id": 32, "name_en": "Kitchen", "name_tc": "廚房用品", "fcId": 3, "seo_en": "kitchen", "seo_tc": "廚房用品", "displayOrder": 2},
+      {"id": 33, "name_en": "Appliances", "name_tc": "家電", "fcId": 3, "seo_en": "appliances", "seo_tc": "家電", "displayOrder": 3},
+      {"id": 34, "name_en": "Decor", "name_tc": "裝飾", "fcId": 3, "seo_en": "decor", "seo_tc": "裝飾", "displayOrder": 4}
+    ]
   },
   {
     "id": 4,
-    "name_en": "Women's Cloth",
-    "name_tc": "女士服裝",
+    "name_en": "Sports",
+    "name_tc": "運動用品",
     "fcId": "0",
     "image": "",
     "description_en": "",
     "description_tc": "",
-    "seo_en": "women-s-cloth",
-    "seo_tc": "女士服裝",
-    "displayOrder": 4
+    "seo_en": "sports",
+    "seo_tc": "運動用品",
+    "displayOrder": 4,
+    "sub_category": [
+      {"id": 41, "name_en": "Fitness", "name_tc": "健身器材", "fcId": 4, "seo_en": "fitness", "seo_tc": "健身器材", "displayOrder": 1},
+      {"id": 42, "name_en": "Outdoor", "name_tc": "戶外運動", "fcId": 4, "seo_en": "outdoor", "seo_tc": "戶外運動", "displayOrder": 2},
+      {"id": 43, "name_en": "Ball Sports", "name_tc": "球類運動", "fcId": 4, "seo_en": "ball-sports", "seo_tc": "球類運動", "displayOrder": 3},
+      {"id": 44, "name_en": "Water Sports", "name_tc": "水上運動", "fcId": 4, "seo_en": "water-sports", "seo_tc": "水上運動", "displayOrder": 4}
+    ]
   },
   {
     "id": 5,
-    "name_en": "Arts",
-    "name_tc": "手工藝",
+    "name_en": "Books & Stationery",
+    "name_tc": "書籍文具",
     "fcId": "0",
     "image": "",
     "description_en": "",
     "description_tc": "",
-    "seo_en": "arts",
-    "seo_tc": "手工藝",
-    "displayOrder": 5
+    "seo_en": "books-stationery",
+    "seo_tc": "書籍文具",
+    "displayOrder": 5,
+    "sub_category": [
+      {"id": 51, "name_en": "Textbooks", "name_tc": "教科書", "fcId": 5, "seo_en": "textbooks", "seo_tc": "教科書", "displayOrder": 1},
+      {"id": 52, "name_en": "Fiction", "name_tc": "小說", "fcId": 5, "seo_en": "fiction", "seo_tc": "小說", "displayOrder": 2},
+      {"id": 53, "name_en": "Stationery", "name_tc": "文具", "fcId": 5, "seo_en": "stationery", "seo_tc": "文具", "displayOrder": 3},
+      {"id": 54, "name_en": "Comics", "name_tc": "漫畫", "fcId": 5, "seo_en": "comics", "seo_tc": "漫畫", "displayOrder": 4}
+    ]
   },
   {
     "id": 6,
-    "name_en": "Living",
-    "name_tc": "生活用品",
+    "name_en": "Toys & Games",
+    "name_tc": "玩具遊戲",
     "fcId": "0",
     "image": "",
     "description_en": "",
     "description_tc": "",
-    "seo_en": "living",
-    "seo_tc": "生活用品",
-    "displayOrder": 6
+    "seo_en": "toys-games",
+    "seo_tc": "玩具遊戲",
+    "displayOrder": 6,
+    "sub_category": [
+      {"id": 61, "name_en": "Models", "name_tc": "模型", "fcId": 6, "seo_en": "models", "seo_tc": "模型", "displayOrder": 1},
+      {"id": 62, "name_en": "Board Games", "name_tc": "Board Games", "fcId": 6, "seo_en": "board-games", "seo_tc": "board-games", "displayOrder": 2},
+      {"id": 63, "name_en": "Plush Toys", "name_tc": "公仔", "fcId": 6, "seo_en": "plush-toys", "seo_tc": "公仔", "displayOrder": 3},
+      {"id": 64, "name_en": "Kids Toys", "name_tc": "兒童玩具", "fcId": 6, "seo_en": "kids-toys", "seo_tc": "兒童玩具", "displayOrder": 4}
+    ]
+  },
+  {
+    "id": 7,
+    "name_en": "Beauty & Health",
+    "name_tc": "美容健康",
+    "fcId": "0",
+    "image": "",
+    "description_en": "",
+    "description_tc": "",
+    "seo_en": "beauty-health",
+    "seo_tc": "美容健康",
+    "displayOrder": 7,
+    "sub_category": [
+      {"id": 71, "name_en": "Skincare", "name_tc": "護膚品", "fcId": 7, "seo_en": "skincare", "seo_tc": "護膚品", "displayOrder": 1},
+      {"id": 72, "name_en": "Cosmetics", "name_tc": "化妝品", "fcId": 7, "seo_en": "cosmetics", "seo_tc": "化妝品", "displayOrder": 2},
+      {"id": 73, "name_en": "Fragrance", "name_tc": "香水", "fcId": 7, "seo_en": "fragrance", "seo_tc": "香水", "displayOrder": 3},
+      {"id": 74, "name_en": "Health Supplements", "name_tc": "保健食品", "fcId": 7, "seo_en": "health-supplements", "seo_tc": "保健食品", "displayOrder": 4}
+    ]
+  },
+  {
+    "id": 8,
+    "name_en": "Pet Supplies",
+    "name_tc": "寵物用品",
+    "fcId": "0",
+    "image": "",
+    "description_en": "",
+    "description_tc": "",
+    "seo_en": "pet-supplies",
+    "seo_tc": "寵物用品",
+    "displayOrder": 8,
+    "sub_category": [
+      {"id": 81, "name_en": "Dog Supplies", "name_tc": "狗用品", "fcId": 8, "seo_en": "dog-supplies", "seo_tc": "狗用品", "displayOrder": 1},
+      {"id": 82, "name_en": "Cat Supplies", "name_tc": "貓用品", "fcId": 8, "seo_en": "cat-supplies", "seo_tc": "貓用品", "displayOrder": 2},
+      {"id": 83, "name_en": "Pet Food", "name_tc": "寵物食品", "fcId": 8, "seo_en": "pet-food", "seo_tc": "寵物食品", "displayOrder": 3},
+      {"id": 84, "name_en": "Other Pets", "name_tc": "其他寵物", "fcId": 8, "seo_en": "other-pets", "seo_tc": "其他寵物", "displayOrder": 4}
+    ]
+  },
+  {
+    "id": 9,
+    "name_en": "Tickets & Vouchers",
+    "name_tc": "門票優惠",
+    "fcId": "0",
+    "image": "",
+    "description_en": "",
+    "description_tc": "",
+    "seo_en": "tickets-vouchers",
+    "seo_tc": "門票優惠",
+    "displayOrder": 9,
+    "sub_category": [
+      {"id": 91, "name_en": "Concert Tickets", "name_tc": "演唱會門票", "fcId": 9, "seo_en": "concert-tickets", "seo_tc": "演唱會門票", "displayOrder": 1},
+      {"id": 92, "name_en": "Attraction Tickets", "name_tc": "景點門票", "fcId": 9, "seo_en": "attraction-tickets", "seo_tc": "景點門票", "displayOrder": 2},
+      {"id": 93, "name_en": "Vouchers", "name_tc": "優惠券", "fcId": 9, "seo_en": "vouchers", "seo_tc": "優惠券", "displayOrder": 3},
+      {"id": 94, "name_en": "Gift Cards", "name_tc": "現金券", "fcId": 9, "seo_en": "gift-cards", "seo_tc": "現金券", "displayOrder": 4}
+    ]
+  },
+  {
+    "id": 10,
+    "name_en": "Others",
+    "name_tc": "其他",
+    "fcId": "0",
+    "image": "",
+    "description_en": "",
+    "description_tc": "",
+    "seo_en": "others",
+    "seo_tc": "其他",
+    "displayOrder": 10,
+    "sub_category": [
+      {"id": 101, "name_en": "Free Items", "name_tc": "免費", "fcId": 10, "seo_en": "free-items", "seo_tc": "免費", "displayOrder": 1},
+      {"id": 102, "name_en": "Wanted", "name_tc": "徵求", "fcId": 10, "seo_en": "wanted", "seo_tc": "徵求", "displayOrder": 2},
+      {"id": 103, "name_en": "Services", "name_tc": "服務", "fcId": 10, "seo_en": "services", "seo_tc": "服務", "displayOrder": 3},
+      {"id": 104, "name_en": "Jobs", "name_tc": "招聘", "fcId": 10, "seo_en": "jobs", "seo_tc": "招聘", "displayOrder": 4}
+    ]
   }
 ]
