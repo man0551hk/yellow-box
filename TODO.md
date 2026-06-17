@@ -16,33 +16,46 @@
 - [x] SEO-friendly URLs with Chinese characters
 - [x] Image upload with resizing
 - [x] Responsive design
+- [x] Cartzilla-inspired UI theme (dist/style.css)
+- [x] Recently viewed products on home page (with JS loading)
+- [x] Trending products section on home page
+- [x] Product view count display
+- [x] Notifications page with unread badge
+- [x] Search history display page
+- [x] Blocked users page
+- [x] Saved searches page
+- [x] My favorites page
+- [x] Enhanced product detail page (seller info, similar products, more from seller)
+- [x] Follow/unfollow button on profile
+- [x] Block user option on profile
+- [x] Report listing button on product detail
+- [x] Seller stats (response rate, last active)
+- [x] Similar products on product detail page
+
+- [x] Pagination styling
+- [x] Modal styling
+- [x] Form styling
+- [x] Alert styling
+- [x] Tab styling
+- [x] Accordion styling
+- [x] Social button styling
+- [x] Countdown component styling
+- [x] Widget component styling
+- [x] Cartzilla icon font fallbacks
 
 ## 🔲 Remaining Features to Implement
 
 ### Backend (Controllers)
-- [ ] Product view tracking (view count, recently viewed)
-- [ ] User follow/unfollow system
-- [ ] User block/unblock system
-- [ ] Product reporting
-- [ ] Notifications system
-- [ ] Search history (unlimited)
-- [ ] User online status / last active
-- [ ] Seller response rate & time tracking
-- [ ] Similar products suggestion
-- [ ] Trending/popular products
-
-### Frontend (Views)
-- [ ] Recently viewed products on home page
-- [ ] Follow/unfollow button on profile
-- [ ] Block user option
-- [ ] Report listing button
-- [ ] Notifications page
-- [ ] Search history display
-- [ ] Product view count display
-- [ ] Seller stats (response rate, last active)
-- [ ] Similar products on product detail page
-- [ ] "More from this seller" on product detail page
-- [ ] Trending products section on home page
+- [ ] Product view tracking (view count, recently viewed) - API endpoint needed
+- [ ] User follow/unfollow system - API endpoint needed
+- [ ] User block/unblock system - API endpoint needed
+- [ ] Product reporting - API endpoint needed
+- [ ] Notifications system - API endpoint needed
+- [ ] Search history (unlimited) - API endpoint needed
+- [ ] User online status / last active - tracking needed
+- [ ] Seller response rate & time tracking - tracking needed
+- [ ] Similar products suggestion - API endpoint needed
+- [ ] Trending/popular products - API endpoint needed
 
 ### API Endpoints
 - [ ] toggle-follow
@@ -54,3 +67,7 @@
 - [ ] clear-search-history
 - [ ] get-similar-products
 - [ ] record-product-view
+- [ ] get-recently-viewed
+- [ ] save-search-history
+- [ ] delete-search
+- [ ] save-search

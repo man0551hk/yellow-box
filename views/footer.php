@@ -5,15 +5,15 @@
       <div class="row">
         <div class="col-lg-4 mb-4">
           <img src="<?= Url::getDomain() ?>images/logo.png" style="height:40px;" class="mb-3" alt="Yellow Hub">
-          <p class="small"><?= Session::get("lang") == "tc" ? "Yellow Hub 係香港其中一個最大嘅網上買賣平台，讓你輕鬆買賣各類商品。" : "Yellow Hub is one of Hong Kong's largest online marketplace, making it easy to buy and sell various items." ?></p>
+          <p class="small text-muted-light"><?= Session::get("lang") == "tc" ? "Yellow Hub 係香港其中一個最大嘅網上買賣平台，讓你輕鬆買賣各類商品。" : "Yellow Hub is one of Hong Kong's largest online marketplace, making it easy to buy and sell various items." ?></p>
           <div class="mt-3">
-            <a href="#" class="text-white mr-3"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="text-white mr-3"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="text-white mr-3"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="text-white mr-3 btn-social" style="background:rgba(255,255,255,0.1);"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white mr-3 btn-social" style="background:rgba(255,255,255,0.1);"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-white mr-3 btn-social" style="background:rgba(255,255,255,0.1);"><i class="fab fa-whatsapp"></i></a>
           </div>
         </div>
         <div class="col-lg-2 col-md-4 mb-4">
-          <h6 class="text-uppercase font-weight-bold mb-3"><?= Lang::$lang["categories"] ?></h6>
+          <h6 class="text-uppercase font-weight-bold mb-3" style="color:#FFD700;"><?= Lang::$lang["categories"] ?></h6>
           <ul class="list-unstyled small">
             <?php
             $footerCategorys = $this->categoryController->GetCategory();
@@ -24,7 +24,7 @@
           </ul>
         </div>
         <div class="col-lg-2 col-md-4 mb-4">
-          <h6 class="text-uppercase font-weight-bold mb-3"><?= Lang::$lang["help"] ?></h6>
+          <h6 class="text-uppercase font-weight-bold mb-3" style="color:#FFD700;"><?= Lang::$lang["help"] ?></h6>
           <ul class="list-unstyled small">
             <li class="mb-2"><a href="#"><?= Lang::$lang["about"] ?></a></li>
             <li class="mb-2"><a href="#"><?= Lang::$lang["contactUs"] ?></a></li>
@@ -33,17 +33,16 @@
           </ul>
         </div>
         <div class="col-lg-4 col-md-4 mb-4">
-          <h6 class="text-uppercase font-weight-bold mb-3"><?= Lang::$lang["contactUs"] ?></h6>
+          <h6 class="text-uppercase font-weight-bold mb-3" style="color:#FFD700;"><?= Lang::$lang["contactUs"] ?></h6>
           <ul class="list-unstyled small">
-            <li class="mb-2"><i class="fas fa-envelope mr-2"></i> support@yellowhk.com</li>
-           
-            <li class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> Hong Kong</li>
+            <li class="mb-2"><i class="fas fa-envelope mr-2" style="color:#FFD700;"></i> support@yellowhk.com</li>
+            <li class="mb-2"><i class="fas fa-map-marker-alt mr-2" style="color:#FFD700;"></i> Hong Kong</li>
           </ul>
         </div>
       </div>
-      <hr class="border-secondary">
+      <hr style="border-color:rgba(255,255,255,0.1);">
       <div class="row">
-        <div class="col text-center small">
+        <div class="col text-center small text-muted">
           &copy; <?= date('Y') ?> deepYellow Limited. <?= Lang::$lang["allRightsReserved"] ?>.
         </div>
       </div>
@@ -80,56 +79,21 @@
       $(this).val(val);
     });
 
-    // Load recently viewed products on home page
-    $(document).ready(function() {
-      if ($('#recentlyViewedContainer').length) {
-        $.get('<?= Url::getDomain() ?>api/get-recently-viewed/', function(data) {
-          var container = $('#recentlyViewedContainer');
-          container.empty();
-          if (data && data.length > 0) {
-            data.forEach(function(product) {
-              var col = $('<div class="col-lg-3 col-md-4 col-6 mb-3"></div>');
-              col.html(`
-                <div class="card product-card h-100">
-                  <a href="<?= Url::getDomain() ?>product/${product.refId}/">
-                    <img src="${product.image || '<?= Url::getDomain() ?>images/test.jpg'}" class="card-img-top" alt="${product.listingTitle}">
-                  </a>
-                  <div class="card-body p-3">
-                    <p class="card-text small text-muted mb-1">
-                      <a href="<?= Url::getDomain() ?>category/${product.category_seo}/" class="category-badge">${product.category_name}</a>
-                    </p>
-                    <h6 class="card-title mb-1">
-                      <a href="<?= Url::getDomain() ?>product/${product.refId}/" class="text-dark">${product.listingTitle.substring(0, 30)}</a>
-                    </h6>
-                    <p class="product-price mb-0">$${Number(product.price).toLocaleString()}</p>
-                    <small class="text-muted">${product.viewedDate ? new Date(product.viewedDate).toLocaleDateString() : ''}</small>
-                  </div>
-                </div>
-              `);
-              container.append(col);
-            });
-          } else {
-            container.html('<div class="col-12 empty-state"><i class="fas fa-history"></i><p><?= Session::get("lang") == "tc" ? "未有瀏覽記錄" : "No recently viewed items" ?></p></div>');
-          }
-        });
-      }
-
-      // Check unread notifications
-      function checkNotifications() {
-        $.get('<?= Url::getDomain() ?>api/get-notifications/', function(data) {
-          if (data && data.unreadCount > 0) {
-            $('#notificationBadge').text(data.unreadCount).show();
-          } else {
-            $('#notificationBadge').hide();
-          }
-        });
-      }
-      
-      <?php if ($isLoggedIn): ?>
-      checkNotifications();
-      setInterval(checkNotifications, 30000); // Check every 30 seconds
-      <?php endif; ?>
-    });
+    // Check unread notifications
+    function checkNotifications() {
+      $.get('<?= Url::getDomain() ?>api/get-notifications/', function(data) {
+        if (data && data.unreadCount > 0) {
+          $('#notificationBadge').text(data.unreadCount).show();
+        } else {
+          $('#notificationBadge').hide();
+        }
+      });
+    }
+    
+    <?php if ($isLoggedIn): ?>
+    checkNotifications();
+    setInterval(checkNotifications, 30000); // Check every 30 seconds
+    <?php endif; ?>
   </script>
 
 </body>

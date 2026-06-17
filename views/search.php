@@ -3,7 +3,7 @@
     <!-- Filters Sidebar -->
     <div class="col-lg-3 mb-4">
       <div class="filter-section">
-        <h6 class="font-weight-bold mb-3"><?= Lang::$lang['filters'] ?></h6>
+        <h6 class="font-weight-bold mb-3" style="color:#332c24;"><i class="fas fa-sliders-h mr-2"></i><?= Lang::$lang['filters'] ?></h6>
         <form method="GET" action="<?= Url::getDomain() ?>search/">
           <input type="hidden" name="keyword" value="<?= htmlspecialchars($keyword) ?>">
           
@@ -38,7 +38,7 @@
             </select>
           </div>
           
-          <button type="submit" class="btn btn-yellow btn-sm btn-block"><?= Lang::$lang['filter'] ?></button>
+          <button type="submit" class="btn btn-yellow btn-sm btn-block btn-shadow"><?= Lang::$lang['filter'] ?></button>
         </form>
       </div>
       
@@ -55,13 +55,13 @@
     <!-- Results -->
     <div class="col-lg-9">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5 class="mb-0">
+        <h5 class="mb-0" style="color:#332c24;">
           <?php if ($keyword): ?>
-            <?= Lang::$lang['searchResults'] ?>: "<?= htmlspecialchars($keyword) ?>"
+            <i class="fas fa-search mr-2" style="color:#DAA520;"></i><?= Lang::$lang['searchResults'] ?>: "<span class="font-weight-bold"><?= htmlspecialchars($keyword) ?></span>"
           <?php else: ?>
             <?= Lang::$lang['all'] ?>
           <?php endif; ?>
-          <small class="text-muted">(<?= count($products) ?>)</small>
+          <small class="text-muted ml-2">(<?= count($products) ?>)</small>
         </h5>
       </div>
       
@@ -71,7 +71,7 @@
             <div class="col-lg-3 col-md-4 col-6 mb-3">
               <div class="card product-card h-100">
                 <a href="<?= Url::getDomain() ?>product/<?= $product['refId'] ?>/">
-                  <img src="<?= $product['image'] ?: Url::getDomain() . 'images/test.jpg' ?>" class="card-img-top" alt="<?= htmlspecialchars($product['listingTitle']) ?>">
+                  <img src="<?= $product['image'] ? Url::getDomain() . $product['image'] : Url::getDomain() . 'images/test.jpg' ?>" class="card-img-top" alt="<?= htmlspecialchars($product['listingTitle']) ?>">
                 </a>
                 <div class="card-body p-3">
                   <p class="card-text small text-muted mb-1">
@@ -81,7 +81,7 @@
                     <a href="<?= Url::getDomain() ?>product/<?= $product['refId'] ?>/" class="text-dark"><?= htmlspecialchars(mb_substr($product['listingTitle'], 0, 30)) ?></a>
                   </h6>
                   <p class="product-price mb-0">$<?= number_format($product['price']) ?></p>
-                  <small class="text-muted"><?= date('Y-m-d', strtotime($product['createdDate'])) ?></small>
+                  <small class="text-muted"><i class="far fa-clock mr-1"></i><?= date('Y-m-d', strtotime($product['createdDate'])) ?></small>
                 </div>
               </div>
             </div>

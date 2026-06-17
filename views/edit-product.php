@@ -5,7 +5,26 @@
         <div class="card-body p-4">
           <h4 class="mb-4"><?= Lang::$lang['editProduct'] ?></h4>
           
-          <form method="POST" action="">
+          <form method="POST" action="" enctype="multipart/form-data">
+            <div class="form-group">
+              <label class="font-weight-bold"><?= Lang::$lang['uploadPhotos'] ?></label>
+              <div class="custom-file mb-2">
+                <input type="file" class="custom-file-input" name="images[]" id="editImages" multiple accept="image/*">
+                <label class="custom-file-label" for="editImages"><?= Lang::$lang['dragDrop'] ?></label>
+              </div>
+              <div id="existingImages" class="d-flex flex-wrap mb-2">
+                <?php if (!empty($product['images'])): ?>
+                  <?php foreach ($product['images'] as $img): ?>
+                    <div class="position-relative mr-2 mb-2">
+                      <img src="<?= Url::getDomain() . $img ?>" style="width:100px;height:100px;object-fit:cover;border-radius:8px;">
+                    </div>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+              </div>
+              <div id="imagePreview" class="d-flex flex-wrap"></div>
+              <small class="form-text text-muted"><?= Lang::$lang['maxImages'] ?></small>
+            </div>
+            
             <div class="form-group">
               <label class="font-weight-bold"><?= Lang::$lang['listingTitle'] ?></label>
               <input type="text" class="form-control" name="listingTitle" required value="<?= htmlspecialchars($product['listingTitle']) ?>">

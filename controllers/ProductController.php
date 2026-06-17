@@ -351,11 +351,19 @@ class ProductController
     
     $productId = $this->dbController->QueryDB("product", $fields, "insert");
     
-    // Save images
-    if (!empty($images)) {
+    // Save images - handle both single file and multiple file uploads
+    if (!empty($images) && isset($images['name'][0]) && $images['name'][0] !== '') {
       $orderId = 1;
-      foreach ($images as $image) {
-        $imagePath = $this->commonController->SaveImage($image, $productId, "images/products");
+      $fileCount = is_array($images['name']) ? count($images['name']) : 1;
+      for ($i = 0; $i < $fileCount; $i++) {
+        if ($images['name'][$i] === '') continue;
+        $file = array(
+          'name' => $images['name'][$i],
+          'tmp_name' => $images['tmp_name'][$i],
+          'size' => $images['size'][$i],
+          'error' => $images['error'][$i]
+        );
+        $imagePath = $this->commonController->SaveImage($file, $productId, "images/products");
         if ($imagePath !== false) {
           $imgFields = array(
             "productId" => $productId,
@@ -486,6 +494,13 @@ class ProductController
     $userId = Session::get("userId");
     $condition = "searchId = $searchId AND userId = $userId";
     return $this->dbController->QueryDB("saved_search", array("searchId" => $searchId), "delete", $condition);
+  }
+
+  public function getNextImageOrderId($productId)
+  {
+    $rs = $this->dbController->QueryDB("productImage", array("MAX(orderId) as maxOrder"), "query", "productId = $productId", null, null, null, false);
+    $row = mysqli_fetch_array($rs);
+    return ($row["maxOrder"] ? $row["maxOrder"] : 0) + 1;
   }
 }
 ?>

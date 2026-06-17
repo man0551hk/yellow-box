@@ -22,7 +22,7 @@
             <tr>
               <td>
                 <div class="d-flex align-items-center">
-                  <img src="<?= $product['image'] ?: Url::getDomain() . 'images/test.jpg' ?>" style="width:50px;height:50px;object-fit:cover;border-radius:8px;" class="mr-3">
+                  <img src="<?= $product['image'] ? Url::getDomain() . $product['image'] : Url::getDomain() . 'images/test.jpg' ?>" style="width:50px;height:50px;object-fit:cover;border-radius:8px;" class="mr-3">
                   <div>
                     <a href="<?= Url::getDomain() ?>product/<?= $product['refId'] ?>/" class="text-dark font-weight-bold"><?= htmlspecialchars(mb_substr($product['listingTitle'], 0, 40)) ?></a>
                   </div>

@@ -1,6 +1,13 @@
-/* Yellow Hub Custom Styles */
+/* ==========================================
+   Yellow Hub - Cartzilla Inspired Theme
+   ========================================== */
 
-/* Dropdown submenu */
+/* Import Rubik Font (Cartzilla uses Rubik) */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+
+/* ==========================================
+   DROPDOWN SUBMENU
+   ========================================== */
 .dropdown-submenu {
   position: relative;
 }
@@ -35,7 +42,9 @@
   border-left-color: #fff;
 }
 
-/* Toast animation */
+/* ==========================================
+   TOAST NOTIFICATIONS
+   ========================================== */
 .toast {
   animation: slideInRight 0.3s ease-in-out;
 }
@@ -51,7 +60,34 @@
   }
 }
 
-/* Product card enhancements */
+/* ==========================================
+   PRODUCT CARDS - Cartzilla Style
+   ========================================== */
+.product-card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: white;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+}
+
+.product-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
 .product-card .card-body {
   padding: 12px;
 }
@@ -63,26 +99,441 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  font-weight: 500;
 }
 
-/* Custom file input */
-.custom-file-label::after {
-  content: "Browse";
+.product-card .card-title a {
+  color: #4b566b;
+  transition: color 0.2s;
 }
 
-/* Price input group */
-.input-group-prepend .input-group-text {
-  background-color: #f8f9fa;
-  border-right: none;
+.product-card .card-title a:hover {
+  color: #EFA844;
 }
 
-/* Filter section */
+.product-price {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #e74c3c;
+}
+
+/* ==========================================
+   CATEGORY BADGE
+   ========================================== */
+.category-badge {
+  background-color: #FFF8DC;
+  color: #856404;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: inline-block;
+  transition: all 0.2s;
+}
+
+.category-badge:hover {
+  background-color: #FFD700;
+  text-decoration: none;
+  color: #333;
+}
+
+/* ==========================================
+   SECTION TITLES - Cartzilla Style
+   ========================================== */
+.section-title {
+  position: relative;
+  padding-bottom: 12px;
+  margin-bottom: 28px;
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: #332c24;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  border-radius: 2px;
+}
+
+.section-title.text-center::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ==========================================
+   BUTTONS - Cartzilla Style
+   ========================================== */
+.btn-yellow {
+  background-color: #FFD700;
+  border-color: #DAA520;
+  color: #333;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.btn-yellow:hover {
+  background-color: #DAA520;
+  border-color: #B8860B;
+  color: #333;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3);
+}
+
+.btn-outline-yellow {
+  border-color: #FFD700;
+  color: #856404;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.btn-outline-yellow:hover {
+  background-color: #FFD700;
+  border-color: #DAA520;
+  color: #333;
+}
+
+.btn-shadow {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.btn-primary {
+  background-color: #EFA844;
+  border-color: #EFA844;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: #e0982e;
+  border-color: #e0982e;
+  box-shadow: 0 4px 12px rgba(239, 168, 68, 0.3);
+}
+
+.btn-outline-primary {
+  border-color: #EFA844;
+  color: #EFA844;
+  border-radius: 8px;
+}
+
+.btn-outline-primary:hover {
+  background-color: #EFA844;
+  border-color: #EFA844;
+  color: #fff;
+}
+
+.btn-outline-danger {
+  border-radius: 8px;
+}
+
+.btn-outline-secondary {
+  border-radius: 8px;
+}
+
+.btn-dark {
+  border-radius: 8px;
+  background-color: #332c24;
+  border-color: #332c24;
+}
+
+/* ==========================================
+   NAVBAR - Cartzilla Style
+   ========================================== */
+.navbar-yellow {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.navbar-yellow .nav-link, .navbar-yellow .navbar-brand {
+  color: #333 !important;
+}
+
+.navbar-yellow .nav-link:hover {
+  color: #000 !important;
+}
+
+.navbar .dropdown-menu {
+  border: none;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  border-radius: 10px;
+}
+
+.navbar .dropdown-item {
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  transition: all 0.15s;
+}
+
+.navbar .dropdown-item:hover {
+  background-color: #FFF8DC;
+  color: #333;
+}
+
+.navbar .dropdown-item i {
+  width: 20px;
+  text-align: center;
+}
+
+/* ==========================================
+   SEARCH BAR
+   ========================================== */
+.search-bar {
+  border-radius: 25px;
+  border: 2px solid #e0e0e0;
+  padding: 8px 20px;
+  transition: all 0.3s;
+  background: white;
+}
+
+.search-bar:focus {
+  border-color: #FFD700;
+  box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+}
+
+/* ==========================================
+   AVATARS
+   ========================================== */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-lg {
+  width: 80px;
+  height: 80px;
+}
+
+.avatar-xl {
+  width: 120px;
+  height: 120px;
+}
+
+/* ==========================================
+   BADGES
+   ========================================== */
+.badge-yellow {
+  background-color: #FFD700;
+  color: #333;
+}
+
+.badge {
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+.badge-danger {
+  background-color: #FFAD4A;
+}
+
+.badge-success {
+  background-color: #42d697;
+}
+
+.badge-info {
+  background-color: #69b3fe;
+}
+
+/* ==========================================
+   FOOTER - Cartzilla Style
+   ========================================== */
+.footer-yellow {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+}
+
+.footer-yellow a {
+  color: #bdc3c7;
+  transition: color 0.2s;
+}
+
+.footer-yellow a:hover {
+  color: #FFD700;
+  text-decoration: none;
+}
+
+.footer-yellow h6 {
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.footer-yellow hr {
+  border-color: rgba(255,255,255,0.1);
+}
+
+/* ==========================================
+   TOPBAR
+   ========================================== */
+.topbar {
+  font-size: 0.85rem;
+}
+
+.topbar .dropdown-toggle::after {
+  display: none;
+}
+
+/* ==========================================
+   CARDS - Cartzilla Style
+   ========================================== */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.card.shadow-sm {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+}
+
+.card-header {
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+/* ==========================================
+   LIST GROUP - Cartzilla Style
+   ========================================== */
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 16px 20px;
+  transition: background-color 0.15s;
+}
+
+.list-group-item:first-child {
+  border-radius: 12px 12px 0 0;
+}
+
+.list-group-item:last-child {
+  border-radius: 0 0 12px 12px;
+  border-bottom: none;
+}
+
+.list-group-item-action:hover {
+  background-color: #FFF8DC;
+}
+
+.list-group-item-warning {
+  background-color: #FFF8DC;
+  border-left: 3px solid #FFD700;
+}
+
+/* ==========================================
+   EMPTY STATE
+   ========================================== */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.empty-state i {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: #ddd;
+}
+
+.empty-state h5 {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* ==========================================
+   FILTER SECTION
+   ========================================== */
+.filter-section {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
 .filter-section select.form-control-sm {
   font-size: 0.875rem;
 }
 
-/* Chat styles */
+/* ==========================================
+   PRODUCT DETAIL
+   ========================================== */
+.product-detail-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.thumbnail-list img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 5px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.thumbnail-list img.active, .thumbnail-list img:hover {
+  border-color: #FFD700;
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   SELLER STATS
+   ========================================== */
+.seller-stats {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.seller-stats span {
+  margin-right: 15px;
+}
+
+/* ==========================================
+   SAVED SEARCH TAGS
+   ========================================== */
+.saved-search-tag {
+  display: inline-block;
+  background: #e9ecef;
+  padding: 5px 15px;
+  border-radius: 20px;
+  margin: 3px;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.saved-search-tag:hover {
+  background: #FFD700;
+}
+
+.saved-search-tag .close-btn {
+  margin-left: 8px;
+  cursor: pointer;
+  color: #999;
+}
+
+.saved-search-tag .close-btn:hover {
+  color: #e74c3c;
+}
+
+/* ==========================================
+   CHAT STYLES
+   ========================================== */
 .chat-sidebar {
+  height: calc(100vh - 200px);
+  overflow-y: auto;
   scrollbar-width: thin;
 }
 
@@ -95,38 +546,67 @@
   border-radius: 3px;
 }
 
-/* Min-width utility */
-.min-width-0 {
-  min-width: 0;
+.chat-messages {
+  height: calc(100vh - 300px);
+  overflow-y: auto;
 }
 
-/* Breadcrumb */
+.message-bubble {
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 18px;
+  margin-bottom: 10px;
+}
+
+.message-sent {
+  background-color: #FFD700;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+
+.message-received {
+  background-color: #e9ecef;
+  margin-right: auto;
+  border-bottom-left-radius: 4px;
+}
+
+/* ==========================================
+   PRICE INPUT
+   ========================================== */
+.price-input {
+  max-width: 200px;
+}
+
+.input-group-prepend .input-group-text {
+  background-color: #f8f9fa;
+  border-right: none;
+}
+
+/* ==========================================
+   CUSTOM FILE INPUT
+   ========================================== */
+.custom-file-label::after {
+  content: "Browse";
+}
+
+/* ==========================================
+   BREADCRUMB
+   ========================================== */
 .breadcrumb {
   background: transparent;
   padding: 0.75rem 0;
 }
 
-/* Alert auto-hide */
+/* ==========================================
+   ALERTS
+   ========================================== */
 .alert-auto-hide {
   transition: opacity 0.5s ease-in-out;
 }
 
-/* Responsive adjustments */
-@media (max-width: 576px) {
-  .product-card .card-img-top {
-    height: 120px;
-  }
-  
-  .product-price {
-    font-size: 1rem;
-  }
-  
-  .section-title {
-    font-size: 1.1rem;
-  }
-}
-
-/* Loading spinner */
+/* ==========================================
+   LOADING SPINNER
+   ========================================== */
 .spinner-overlay {
   position: fixed;
   top: 0;
@@ -140,39 +620,35 @@
   z-index: 9999;
 }
 
-/* Badge enhancements */
-.badge {
-  font-weight: 500;
-  padding: 5px 10px;
-}
-
-/* Table responsive */
+/* ==========================================
+   TABLE
+   ========================================== */
 .table-responsive {
   border-radius: 12px;
   overflow: hidden;
 }
 
-/* Hover effect for table rows */
 .table-hover tbody tr:hover {
   background-color: #FFF8DC;
 }
 
-/* Navbar toggler icon */
+/* ==========================================
+   NAVBAR TOGGLER
+   ========================================== */
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0,0,0,0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* Topbar language dropdown */
-.topbar .dropdown-toggle::after {
-  display: none;
-}
-
-/* Smooth scroll */
+/* ==========================================
+   SMOOTH SCROLL
+   ========================================== */
 html {
   scroll-behavior: smooth;
 }
 
-/* Focus styles */
+/* ==========================================
+   FOCUS STYLES
+   ========================================== */
 .form-control:focus {
   border-color: #FFD700;
   box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
@@ -181,3 +657,590 @@ html {
 .btn:focus {
   box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
 }
+
+/* ==========================================
+   MIN-WIDTH UTILITY
+   ========================================== */
+.min-width-0 {
+  min-width: 0;
+}
+
+/* ==========================================
+   CARTZILLA INSPIRED COMPONENTS
+   ========================================== */
+
+/* Page Title Overlap */
+.page-title-overlap {
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+/* Star Rating */
+.star-rating {
+  display: inline-flex;
+  align-items: center;
+}
+
+.star-rating i {
+  color: #fea569;
+  font-size: 0.85rem;
+  margin-right: 2px;
+}
+
+/* Product Badge */
+.product-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #42d697;
+}
+
+.product-badge i {
+  margin-right: 6px;
+}
+
+/* Wishlist Button */
+.btn-wishlist {
+  background: none;
+  border: none;
+  color: #7d879c;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0;
+}
+
+.btn-wishlist:hover {
+  color: #e74c3c;
+}
+
+/* Notification Badge Pulse */
+.notification-badge {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* ==========================================
+   PROFILE PAGE
+   ========================================== */
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 16px 0;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  margin: 16px 0;
+}
+
+.profile-stat-item {
+  text-align: center;
+}
+
+.profile-stat-number {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #332c24;
+}
+
+.profile-stat-label {
+  font-size: 0.8rem;
+  color: #7d879c;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================
+   NOTIFICATION PAGE
+   ========================================== */
+.notification-item {
+  transition: all 0.2s;
+}
+
+.notification-item.unread {
+  background-color: #FFF8DC;
+  border-left: 3px solid #FFD700;
+}
+
+.notification-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #FFF8DC;
+  color: #DAA520;
+}
+
+/* ==========================================
+   SEARCH HISTORY
+   ========================================== */
+.history-item {
+  transition: all 0.2s;
+}
+
+.history-item:hover {
+  background-color: #FFF8DC;
+}
+
+/* ==========================================
+   BLOCKED USERS
+   ========================================== */
+.blocked-user-item {
+  transition: all 0.2s;
+}
+
+.blocked-user-item:hover {
+  background-color: #FFF8DC;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 768px) {
+  .product-card .card-img-top {
+    height: 150px;
+  }
+  
+  .navbar-brand img {
+    height: 40px !important;
+  }
+  
+  .product-price {
+    font-size: 1rem;
+  }
+  
+  .section-title {
+    font-size: 1.1rem;
+  }
+  
+  .profile-stats {
+    flex-wrap: wrap;
+  }
+  
+  .profile-stat-item {
+    flex: 0 0 33.33%;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .product-card .card-img-top {
+    height: 120px;
+  }
+  
+  .product-price {
+    font-size: 0.95rem;
+  }
+  
+  .section-title {
+    font-size: 1rem;
+  }
+}
+
+/* ==========================================
+   HERO BANNER
+   ========================================== */
+.hero-banner {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+}
+
+.hero-banner::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+
+/* ==========================================
+   TRENDING SECTION
+   ========================================== */
+.trending-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+
+/* ==========================================
+   SIMILAR PRODUCTS
+   ========================================== */
+.similar-product-card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.25s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.similar-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* ==========================================
+   SELLER INFO CARD
+   ========================================== */
+.seller-info-card {
+  background: linear-gradient(135deg, #FFF8DC, #FFE4B5);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* ==========================================
+   TOOLTIP
+   ========================================== */
+.tooltip-inner {
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+
+/* ==========================================
+   MODAL
+   ========================================== */
+.modal-content {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 20px 24px;
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+/* ==========================================
+   PROGRESS BAR
+   ========================================== */
+.progress {
+  border-radius: 10px;
+  background-color: #f3f5f9;
+}
+
+.progress-bar {
+  border-radius: 10px;
+  background-color: #FFD700;
+}
+
+/* ==========================================
+   PAGINATION
+   ========================================== */
+.page-link {
+  border: none;
+  border-radius: 8px !important;
+  margin: 0 2px;
+  color: #4b566b;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.page-link:hover {
+  background-color: #FFF8DC;
+  color: #332c24;
+}
+
+.page-item.active .page-link {
+  background-color: #FFD700;
+  border-color: #FFD700;
+  color: #333;
+}
+
+/* ==========================================
+    CONVERSATION ITEM
+    ========================================== */
+.conversation-item {
+  transition: all 0.2s;
+}
+
+.conversation-item:hover {
+  background-color: #FFF8DC;
+}
+
+.conversation-item.active {
+  background-color: #FFF8DC;
+  border-left: 3px solid #FFD700;
+}
+
+/* ==========================================
+    CATEGORY CARD
+    ========================================== */
+.category-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1) !important;
+}
+
+/* ==========================================
+    FONT WEIGHT MEDIUM
+    ========================================== */
+.font-weight-medium {
+  font-weight: 500;
+}
+
+/* ==========================================
+    FORM STYLES
+    ========================================== */
+
+.form-control {
+  border-radius: 8px;
+  border-color: #e0e0e0;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+}
+
+.form-control-sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.form-control-lg {
+  padding: 14px 20px;
+  font-size: 1rem;
+}
+
+.custom-select {
+  border-radius: 8px;
+  border-color: #e0e0e0;
+}
+
+/* ==========================================
+   ALERT STYLES
+   ========================================== */
+.alert {
+  border: none;
+  border-radius: 10px;
+}
+
+.alert-success {
+  background-color: #e8faf1;
+  color: #1a8b5a;
+}
+
+.alert-danger {
+  background-color: #fef2f2;
+  color: #dc3545;
+}
+
+.alert-warning {
+  background-color: #fff8e1;
+  color: #856404;
+}
+
+.alert-info {
+  background-color: #e8f4fd;
+  color: #0c6eb9;
+}
+
+/* ==========================================
+   DROPDOWN ENHANCEMENTS
+   ========================================== */
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  border-radius: 10px;
+}
+
+.dropdown-header {
+  font-weight: 600;
+  color: #332c24;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dropdown-divider {
+  border-color: rgba(0,0,0,0.06);
+}
+
+/* ==========================================
+   NAV TABS
+   ========================================== */
+.nav-tabs {
+  border-bottom: none;
+}
+
+.nav-tabs .nav-link {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 500;
+  color: #7d879c;
+  transition: all 0.2s;
+}
+
+.nav-tabs .nav-link:hover {
+  background-color: #FFF8DC;
+  color: #333;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #FFD700;
+  color: #333;
+}
+
+/* ==========================================
+   ACCORDION
+   ========================================== */
+.accordion .card {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.accordion .card-header {
+  padding: 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.accordion-heading a {
+  display: block;
+  padding: 16px 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #332c24;
+  text-decoration: none;
+}
+
+.accordion-heading a:hover {
+  color: #EFA844;
+}
+
+.accordion-heading a .accordion-indicator {
+  float: right;
+  transition: transform 0.2s;
+}
+
+.accordion-heading a[aria-expanded="true"] .accordion-indicator {
+  transform: rotate(180deg);
+}
+
+/* ==========================================
+   SOCIAL BUTTONS
+   ========================================== */
+.btn-social {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.btn-social:hover {
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   COUNTDOWN
+   ========================================== */
+.countdown {
+  display: flex;
+  gap: 12px;
+}
+
+.countdown-item {
+  text-align: center;
+}
+
+.countdown-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #332c24;
+  display: block;
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  color: #7d879c;
+  text-transform: uppercase;
+}
+
+/* ==========================================
+   WIDGET
+   ========================================== */
+.widget-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #332c24;
+}
+
+.widget-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.widget-list-item {
+  padding: 4px 0;
+}
+
+.widget-list-link {
+  color: #7d879c;
+  font-size: 0.9rem;
+  transition: color 0.15s;
+}
+
+.widget-list-link:hover {
+  color: #EFA844;
+  text-decoration: none;
+}
+
+/* ==========================================
+   CARTZILLA ICONS FALLBACK
+   ========================================== */
+.czi-home::before { content: "\f015"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-search::before { content: "\f002"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-user::before { content: "\f007"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-heart::before { content: "\f004"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-cart::before { content: "\f07a"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-menu::before { content: "\f0c9"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-view-grid::before { content: "\f00a"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-arrow-right::before { content: "\f061"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-unlocked::before { content: "\f09c"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-eye::before { content: "\f06e"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-support::before { content: "\f1cd"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-location::before { content: "\f3c5"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-delivery::before { content: "\f0d1"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-announcement::before { content: "\f0a1"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-ruler::before { content: "\f545"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-security-check::before { content: "\f132"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-star-filled::before { content: "\f005"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-star::before { content: "\f005"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-video::before { content: "\f03d"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-book::before { content: "\f02d"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-server::before { content: "\f233"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-edit::before { content: "\f044"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-help::before { content: "\f059"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+.czi-card::before { content: "\f09d"; font-family: "Font Awesome 5 Free"; font-weight: 900; }

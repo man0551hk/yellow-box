@@ -56,8 +56,16 @@ class DBController {
 
   public function MakeInsertQuery($table, $fields = array()) {
     $query = "insert into " . $table . " (";
-    $query .= implode(", ",array_keys($fields));
-    $query .= ") values ('" .  implode("','", array_values($fields)) . "')";
+    $escapedKeys = array();
+    foreach (array_keys($fields) as $key) {
+      array_push($escapedKeys, "`" . $key . "`");
+    }
+    $query .= implode(", ", $escapedKeys);
+    $escapedValues = array();
+    foreach (array_values($fields) as $value) {
+      array_push($escapedValues, "'" . $value . "'");
+    }
+    $query .= ") values (" . implode(",", $escapedValues) . ")";
     return $query;
   }
 
@@ -76,7 +84,7 @@ class DBController {
     $updateSet = array();
     foreach ($fields as $key => $value) {
       if ($key != 'id') {
-        array_push($updateSet, $key . " = '" . $value . "' " );
+        array_push($updateSet, "`" . $key . "` = '" . $value . "' " );
       }
     }
     $query .= implode(" , ", $updateSet );

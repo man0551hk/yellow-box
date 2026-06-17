@@ -216,6 +216,33 @@ class PageController
         'keyword' => $_POST['keyword']
       );
       $this->productController->updateProduct($product['productId'], $data);
+      
+      // Handle image uploads
+      $images = isset($_FILES['images']) ? $_FILES['images'] : array();
+      if (!empty($images) && isset($images['name'][0]) && $images['name'][0] !== '') {
+        $fileCount = is_array($images['name']) ? count($images['name']) : 1;
+        $orderId = $this->productController->getNextImageOrderId($product['productId']);
+        for ($i = 0; $i < $fileCount; $i++) {
+          if ($images['name'][$i] === '') continue;
+          $file = array(
+            'name' => $images['name'][$i],
+            'tmp_name' => $images['tmp_name'][$i],
+            'size' => $images['size'][$i],
+            'error' => $images['error'][$i]
+          );
+          $imagePath = $this->commonController->SaveImage($file, $product['productId'], "images/products");
+          if ($imagePath !== false) {
+            $imgFields = array(
+              "productId" => $product['productId'],
+              "path" => $imagePath,
+              "orderId" => $orderId
+            );
+            $this->dbController->QueryDB("productImage", $imgFields, "insert");
+            $orderId++;
+          }
+        }
+      }
+      
       header('Location: ' . Url::getDomain() . 'product/' . $refId . '/');
       exit;
     }

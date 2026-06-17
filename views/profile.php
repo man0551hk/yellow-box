@@ -4,41 +4,44 @@
       <div class="card border-0 shadow-sm text-center">
         <div class="card-body p-4">
           <?php if ($profileUser['profilePic']): ?>
-            <img src="<?= $profileUser['profilePic'] ?>" class="avatar avatar-xl mb-3">
+            <img src="<?= $profileUser['profilePic'] ?>" class="avatar avatar-xl mb-3" style="border:4px solid #FFF8DC;">
           <?php else: ?>
-            <div class="avatar avatar-xl bg-warning d-flex align-items-center justify-content-center text-white font-weight-bold mx-auto mb-3" style="font-size:2.5rem;">
+            <div class="avatar avatar-xl d-flex align-items-center justify-content-center text-white font-weight-bold mx-auto mb-3" style="font-size:2.5rem;background:linear-gradient(135deg,#FFD700,#FFA500);border:4px solid #FFF8DC;">
               <?= strtoupper(substr($profileUser['firstName'], 0, 1)) ?>
             </div>
           <?php endif; ?>
-          <h5 class="font-weight-bold"><?= htmlspecialchars($profileUser['firstName'] . ' ' . $profileUser['lastName']) ?></h5>
-          <p class="text-muted small"><?= Lang::$lang['memberSince'] ?> <?= date('Y-m') ?></p>
+          <h5 class="font-weight-bold" style="color:#332c24;"><?= htmlspecialchars($profileUser['firstName'] . ' ' . $profileUser['lastName']) ?></h5>
+          <p class="text-muted small"><i class="far fa-calendar-alt mr-1"></i><?= Lang::$lang['memberSince'] ?> <?= date('Y-m') ?></p>
           
           <?php
           $followerCount = $this->userController->getFollowerCount($profileUser['userId']);
           $followingCount = $this->userController->getFollowingCount($profileUser['userId']);
           ?>
-          <div class="d-flex justify-content-around mt-3">
-            <div>
-              <div class="font-weight-bold"><?= count($products) ?></div>
-              <small class="text-muted"><?= Lang::$lang['products'] ?></small>
+          <div class="profile-stats">
+            <div class="profile-stat-item">
+              <div class="profile-stat-number"><?= count($products) ?></div>
+              <div class="profile-stat-label"><?= Lang::$lang['products'] ?></div>
             </div>
-            <div>
-              <div class="font-weight-bold"><?= $followerCount ?></div>
-              <small class="text-muted"><?= Lang::$lang['followers'] ?></small>
+            <div class="profile-stat-item">
+              <div class="profile-stat-number"><?= $followerCount ?></div>
+              <div class="profile-stat-label"><?= Lang::$lang['followers'] ?></div>
             </div>
-            <div>
-              <div class="font-weight-bold"><?= $followingCount ?></div>
-              <small class="text-muted"><?= Session::get("lang") == "tc" ? "關注中" : "Following" ?></small>
+            <div class="profile-stat-item">
+              <div class="profile-stat-number"><?= $followingCount ?></div>
+              <div class="profile-stat-label"><?= Session::get("lang") == "tc" ? "關注中" : "Following" ?></div>
             </div>
           </div>
           
-          <?php if ($profileUser['responseRate'] > 0 || $profileUser['responseTime']): ?>
-            <div class="mt-3 small text-muted">
+          <?php if ($profileUser['responseRate'] > 0 || $profileUser['responseTime'] || $profileUser['lastActive']): ?>
+            <div class="mt-3 small text-muted text-left">
               <?php if ($profileUser['responseRate'] > 0): ?>
-                <div><i class="fas fa-reply mr-1"></i><?= $profileUser['responseRate'] ?>% <?= Session::get("lang") == "tc" ? "回覆率" : "response rate" ?></div>
+                <div class="mb-1"><i class="fas fa-reply mr-1" style="color:#42d697;"></i><?= $profileUser['responseRate'] ?>% <?= Session::get("lang") == "tc" ? "回覆率" : "response rate" ?></div>
               <?php endif; ?>
               <?php if ($profileUser['responseTime']): ?>
-                <div><i class="fas fa-clock mr-1"></i><?= $profileUser['responseTime'] ?></div>
+                <div class="mb-1"><i class="fas fa-clock mr-1" style="color:#69b3fe;"></i><?= $profileUser['responseTime'] ?></div>
+              <?php endif; ?>
+              <?php if ($profileUser['lastActive']): ?>
+                <div><i class="fas fa-circle mr-1" style="color:#42d697;font-size:8px;vertical-align:middle;"></i><?= $profileUser['lastActive'] ?></div>
               <?php endif; ?>
             </div>
           <?php endif; ?>
@@ -49,7 +52,7 @@
                 <i class="fas fa-cog mr-2"></i><?= Lang::$lang['settings'] ?>
               </a>
             <?php else: ?>
-              <a href="<?= Url::getDomain() ?>inbox/<?= $profileUser['userId'] ?>/" class="btn btn-yellow btn-block mt-3">
+              <a href="<?= Url::getDomain() ?>inbox/<?= $profileUser['userId'] ?>/" class="btn btn-yellow btn-block mt-3 btn-shadow">
                 <i class="fas fa-comment mr-2"></i><?= Lang::$lang['chat'] ?>
               </a>
               <button class="btn btn-outline-primary btn-block mt-2" onclick="toggleFollow(<?= $profileUser['userId'] ?>)">
@@ -73,7 +76,7 @@
             <div class="col-lg-3 col-md-4 col-6 mb-3">
               <div class="card product-card h-100">
                 <a href="<?= Url::getDomain() ?>product/<?= $product['refId'] ?>/">
-                  <img src="<?= $product['image'] ?: Url::getDomain() . 'images/test.jpg' ?>" class="card-img-top" alt="<?= htmlspecialchars($product['listingTitle']) ?>">
+                  <img src="<?= $product['image'] ? Url::getDomain() . $product['image'] : Url::getDomain() . 'images/test.jpg' ?>" class="card-img-top" alt="<?= htmlspecialchars($product['listingTitle']) ?>">
                 </a>
                 <div class="card-body p-3">
                   <p class="card-text small text-muted mb-1">

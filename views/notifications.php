@@ -1,8 +1,8 @@
 <div class="container py-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="font-weight-bold mb-0"><?= Lang::$lang["notifications"] ?>
+    <h4 class="font-weight-bold mb-0" style="color:#332c24;"><?= Lang::$lang["notifications"] ?>
       <?php if ($unreadCount > 0): ?>
-        <span class="badge badge-danger badge-pill ml-2"><?= $unreadCount ?></span>
+        <span class="badge badge-danger badge-pill ml-2 notification-badge"><?= $unreadCount ?></span>
       <?php endif; ?>
     </h4>
     <?php if (!empty($notifications)): ?>
@@ -13,32 +13,34 @@
   </div>
 
   <?php if (!empty($notifications)): ?>
-    <div class="list-group">
-      <?php foreach ($notifications as $notif): ?>
-        <div class="list-group-item list-group-item-action <?= $notif['isRead'] ? '' : 'list-group-item-warning' ?> d-flex align-items-center">
-          <div class="mr-3">
-            <?php
-            $icon = 'fa-bell';
-            switch ($notif['type']) {
-              case 'newFollower': $icon = 'fa-user-plus'; break;
-              case 'newMessage': $icon = 'fa-comment'; break;
-              case 'newProduct': $icon = 'fa-box'; break;
-              case 'favorite': $icon = 'fa-heart'; break;
-            }
-            ?>
-            <i class="fas <?= $icon ?> fa-lg text-warning"></i>
+    <div class="card border-0 shadow-sm">
+      <div class="list-group list-group-flush">
+        <?php foreach ($notifications as $notif): ?>
+          <div class="list-group-item list-group-item-action notification-item <?= $notif['isRead'] ? '' : 'unread' ?> d-flex align-items-center">
+            <div class="notification-icon mr-3">
+              <?php
+              $icon = 'fa-bell';
+              switch ($notif['type']) {
+                case 'newFollower': $icon = 'fa-user-plus'; break;
+                case 'newMessage': $icon = 'fa-comment'; break;
+                case 'newProduct': $icon = 'fa-box'; break;
+                case 'favorite': $icon = 'fa-heart'; break;
+              }
+              ?>
+              <i class="fas <?= $icon ?>"></i>
+            </div>
+            <div class="flex-grow-1 min-width-0">
+              <p class="mb-1"><?= htmlspecialchars($notif['message']) ?></p>
+              <small class="text-muted"><i class="far fa-clock mr-1"></i><?= date('Y-m-d H:i', strtotime($notif['createdDate'])) ?></small>
+            </div>
+            <?php if (!$notif['isRead']): ?>
+              <button class="btn btn-sm btn-yellow ml-2" onclick="markRead(<?= $notif['notificationId'] ?>)">
+                <i class="fas fa-check"></i>
+              </button>
+            <?php endif; ?>
           </div>
-          <div class="flex-grow-1">
-            <p class="mb-1"><?= htmlspecialchars($notif['message']) ?></p>
-            <small class="text-muted"><?= date('Y-m-d H:i', strtotime($notif['createdDate'])) ?></small>
-          </div>
-          <?php if (!$notif['isRead']): ?>
-            <button class="btn btn-sm btn-link text-muted" onclick="markRead(<?= $notif['notificationId'] ?>)">
-              <i class="fas fa-check"></i>
-            </button>
-          <?php endif; ?>
-        </div>
-      <?php endforeach; ?>
+        <?php endforeach; ?>
+      </div>
     </div>
   <?php else: ?>
     <div class="empty-state">

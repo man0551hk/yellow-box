@@ -63,12 +63,18 @@ class CommonController
     if (!file_exists($target_dir)) {
       mkdir($target_dir, 0777, true);
     }
+    
+    // Validate image data
+    if (!isset($image["name"]) || !isset($image["tmp_name"]) || $image["name"] === '' || $image["tmp_name"] === '') {
+      return false;
+    }
+    
     $imageFileType = strtolower(pathinfo(basename($image["name"]), PATHINFO_EXTENSION));
     $fileName = $id . '_' . Cookie::RandomValue() . '.' .  $imageFileType;
     $target_file = $target_dir . $fileName;
     $uploadOk = 1;
 
-    $check = getimagesize($image["tmp_name"]);
+    $check = @getimagesize($image["tmp_name"]);
     if ($check !== false) {
       $uploadOk = 1;
     } else {
@@ -104,7 +110,7 @@ class CommonController
       $dst = imagecreatetruecolor($width, $height);
       imagecopyresampled($dst, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
       imagedestroy($src);
-      imagepng($dst, $folder . '/' . $fileName); // adjust format as needed
+      imagepng($dst, $target_file);
       imagedestroy($dst);
       return $folder . '/' . $fileName;
     }

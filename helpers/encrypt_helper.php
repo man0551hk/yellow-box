@@ -31,5 +31,19 @@ class Encrypt {
         return $original_plaintext;
     }
   }
+
+  /**
+   * Hash a password using bcrypt
+   */
+  public static function hashPassword($password) {
+    return password_hash($password, PASSWORD_BCRYPT);
+  }
+
+  /**
+   * Verify a password against a bcrypt hash
+   */
+  public static function verifyPassword($password, $hash) {
+    return password_verify($password, $hash);
+  }
 }
 ?>
