@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 19, 2020 at 04:11 PM
--- Server version: 5.7.26
--- PHP Version: 7.3.8
+-- Host: localhost:8889
+-- Generation Time: Jun 17, 2026 at 05:12 PM
+-- Server version: 8.0.40
+-- PHP Version: 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 --
@@ -21,31 +22,119 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `category` (
-  `id` int(11) NOT NULL,
-  `name_en` varchar(200) NOT NULL,
-  `name_tc` varchar(200) NOT NULL,
-  `fcId` int(11) NOT NULL DEFAULT '0',
-  `image` varchar(200) NOT NULL,
-  `description_en` text NOT NULL,
-  `description_tc` text NOT NULL,
-  `seo_en` varchar(100) NOT NULL,
-  `seo_tc` varchar(100) NOT NULL,
-  `displayOrder` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` int NOT NULL,
+  `fcId` int NOT NULL DEFAULT '0',
+  `name_tc` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_en` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `seo_tc` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `seo_en` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `displayOrder` int DEFAULT '0',
+  `status` tinyint(1) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `name_en`, `name_tc`, `fcId`, `image`, `description_en`, `description_tc`, `seo_en`, `seo_tc`, `displayOrder`) VALUES
-(1, 'Toys', '玩具', 0, '', '', '', 'toys', '玩具', 1),
-(2, 'Gaming', '電子遊戲', 0, '', '', '', 'gaming', '電子遊戲', 2),
-(3, 'Men\'s Cloth', '男士服裝', 0, '', '', '', 'men-s-cloth', '男士服裝', 3),
-(4, 'Women\'s Cloth', '女士服裝', 0, '', '', '', 'women-s-cloth', '女士服裝', 4),
-(5, 'Arts', '手工藝', 0, '', '', '', 'arts', '手工藝', 5),
-(6, 'Living', '生活用品', 0, '', '', '', 'living', '生活用品', 6),
-(7, 'Models', '模型', 1, '', '', '', 'models', '模型', 1),
-(8, 'Figures', '手辦', 1, '', '', '', 'figures', '手辦', 2);
+INSERT INTO `category` (`id`, `fcId`, `name_tc`, `name_en`, `seo_tc`, `seo_en`, `displayOrder`, `status`) VALUES
+(1, 0, '電子產品', 'Electronics', '電子產品', 'electronics', 1, 1),
+(2, 0, '時尚服飾', 'Fashion', '時尚服飾', 'fashion', 2, 1),
+(3, 0, '家居生活', 'Home & Living', '家居生活', 'home-living', 3, 1),
+(4, 0, '運動用品', 'Sports', '運動用品', 'sports', 4, 1),
+(5, 0, '書籍文具', 'Books & Stationery', '書籍文具', 'books-stationery', 5, 1),
+(6, 0, '玩具遊戲', 'Toys & Games', '玩具遊戲', 'toys-games', 6, 1),
+(7, 0, '美容健康', 'Beauty & Health', '美容健康', 'beauty-health', 7, 1),
+(8, 0, '寵物用品', 'Pet Supplies', '寵物用品', 'pet-supplies', 8, 1),
+(9, 0, '門票優惠', 'Tickets & Vouchers', '門票優惠', 'tickets-vouchers', 9, 1),
+(10, 0, '其他', 'Others', '其他', 'others', 10, 1),
+(11, 1, '手機', 'Mobile Phones', '手機', 'mobile-phones', 1, 1),
+(12, 1, '電腦', 'Computers', '電腦', 'computers', 2, 1),
+(13, 1, '相機', 'Cameras', '相機', 'cameras', 3, 1),
+(14, 1, '遊戲機', 'Gaming', '遊戲機', 'gaming', 4, 1),
+(15, 1, '耳機音響', 'Headphones & Audio', '耳機音響', 'headphones-audio', 5, 1),
+(16, 1, '智能手錶', 'Smart Watches', '智能手錶', 'smart-watches', 6, 1),
+(17, 2, '男裝', 'Men\'s Fashion', '男裝', 'mens-fashion', 1, 1),
+(18, 2, '女裝', 'Women\'s Fashion', '女裝', 'womens-fashion', 2, 1),
+(19, 2, '手袋', 'Bags', '手袋', 'bags', 3, 1),
+(20, 2, '鞋類', 'Shoes', '鞋類', 'shoes', 4, 1),
+(21, 2, '手錶', 'Watches', '手錶', 'watches', 5, 1),
+(22, 2, '飾物', 'Accessories', '飾物', 'accessories', 6, 1),
+(23, 3, '傢俬', 'Furniture', '傢俬', 'furniture', 1, 1),
+(24, 3, '廚房用品', 'Kitchen', '廚房用品', 'kitchen', 2, 1),
+(25, 3, '家電', 'Appliances', '家電', 'appliances', 3, 1),
+(26, 3, '裝飾', 'Decor', '裝飾', 'decor', 4, 1),
+(27, 4, '健身器材', 'Fitness', '健身器材', 'fitness', 1, 1),
+(28, 4, '戶外運動', 'Outdoor', '戶外運動', 'outdoor', 2, 1),
+(29, 4, '球類運動', 'Ball Sports', '球類運動', 'ball-sports', 3, 1),
+(30, 4, '水上運動', 'Water Sports', '水上運動', 'water-sports', 4, 1),
+(31, 5, '教科書', 'Textbooks', '教科書', 'textbooks', 1, 1),
+(32, 5, '小說', 'Fiction', '小說', 'fiction', 2, 1),
+(33, 5, '文具', 'Stationery', '文具', 'stationery', 3, 1),
+(34, 5, '漫畫', 'Comics', '漫畫', 'comics', 4, 1),
+(35, 6, '模型', 'Models', '模型', 'models', 1, 1),
+(36, 6, 'Board Games', 'Board Games', 'board-games', 'board-games', 2, 1),
+(37, 6, '公仔', 'Plush Toys', '公仔', 'plush-toys', 3, 1),
+(38, 6, '兒童玩具', 'Kids Toys', '兒童玩具', 'kids-toys', 4, 1),
+(39, 7, '護膚品', 'Skincare', '護膚品', 'skincare', 1, 1),
+(40, 7, '化妝品', 'Cosmetics', '化妝品', 'cosmetics', 2, 1),
+(41, 7, '香水', 'Fragrance', '香水', 'fragrance', 3, 1),
+(42, 7, '保健食品', 'Health Supplements', '保健食品', 'health-supplements', 4, 1),
+(43, 8, '狗用品', 'Dog Supplies', '狗用品', 'dog-supplies', 1, 1),
+(44, 8, '貓用品', 'Cat Supplies', '貓用品', 'cat-supplies', 2, 1),
+(45, 8, '寵物食品', 'Pet Food', '寵物食品', 'pet-food', 3, 1),
+(46, 8, '其他寵物', 'Other Pets', '其他寵物', 'other-pets', 4, 1),
+(47, 9, '演唱會門票', 'Concert Tickets', '演唱會門票', 'concert-tickets', 1, 1),
+(48, 9, '景點門票', 'Attraction Tickets', '景點門票', 'attraction-tickets', 2, 1),
+(49, 9, '優惠券', 'Vouchers', '優惠券', 'vouchers', 3, 1),
+(50, 9, '現金券', 'Gift Cards', '現金券', 'gift-cards', 4, 1),
+(51, 10, '免費', 'Free Items', '免費', 'free-items', 1, 1),
+(52, 10, '徵求', 'Wanted', '徵求', 'wanted', 2, 1),
+(53, 10, '服務', 'Services', '服務', 'services', 3, 1),
+(54, 10, '招聘', 'Jobs', '招聘', 'jobs', 4, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `favorite`
+--
+
+CREATE TABLE `favorite` (
+  `favoriteId` int NOT NULL,
+  `userId` int NOT NULL,
+  `productId` int NOT NULL,
+  `createdDate` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message`
+--
+
+CREATE TABLE `message` (
+  `messageId` int NOT NULL,
+  `fromUserId` int NOT NULL,
+  `toUserId` int NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) DEFAULT '0' COMMENT '0=unread, 1=read',
+  `sentDate` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `notificationId` int NOT NULL,
+  `userId` int NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `message` text NOT NULL,
+  `relatedId` int DEFAULT NULL,
+  `isRead` int DEFAULT '0',
+  `createdDate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -54,19 +143,31 @@ INSERT INTO `category` (`id`, `name_en`, `name_tc`, `fcId`, `image`, `descriptio
 --
 
 CREATE TABLE `product` (
-  `productId` int(11) NOT NULL,
-  `refId` varchar(20) NOT NULL,
-  `fcId` int(11) NOT NULL,
-  `scId` int(11) NOT NULL,
-  `listingTitle` varchar(500) NOT NULL,
-  `condition` int(1) NOT NULL,
-  `brand` varchar(30) NOT NULL,
-  `price` int(11) NOT NULL,
-  `description` varchar(2000) NOT NULL,
-  `keyword` varchar(500) NOT NULL,
-  `createdDate` datetime NOT NULL,
-  `status` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `productId` int NOT NULL,
+  `refId` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fcId` int NOT NULL DEFAULT '0',
+  `scId` int NOT NULL DEFAULT '0',
+  `listingTitle` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `condition` tinyint(1) DEFAULT '0' COMMENT '0=any, 1=brandnew, 2=secondhand',
+  `brand` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `price` decimal(10,2) DEFAULT '0.00',
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `keyword` text COLLATE utf8mb4_unicode_ci,
+  `createdDate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updatedDate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `status` tinyint(1) DEFAULT '1' COMMENT '0=deleted, 1=active, 2=sold, 3=reserved',
+  `userId` int NOT NULL,
+  `viewCount` int DEFAULT '0',
+  `isSold` int DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`productId`, `refId`, `fcId`, `scId`, `listingTitle`, `condition`, `brand`, `price`, `description`, `keyword`, `createdDate`, `updatedDate`, `status`, `userId`, `viewCount`, `isSold`) VALUES
+(1, '0B0350E6', 6, 35, 'Test', 1, '', 400.00, '', '', '2026-06-18 01:07:32', NULL, 1, 1, 0, 0),
+(2, '3F015327', 6, 35, 'Test', 1, '', 400.00, '', '', '2026-06-18 01:08:09', '2026-06-18 01:09:21', 0, 1, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -75,11 +176,85 @@ CREATE TABLE `product` (
 --
 
 CREATE TABLE `productImage` (
-  `imageId` int(11) NOT NULL,
-  `productId` int(11) NOT NULL,
-  `path` varchar(500) NOT NULL,
-  `orderId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `imageId` int NOT NULL,
+  `productId` int NOT NULL,
+  `path` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `orderId` int DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `productImage`
+--
+
+INSERT INTO `productImage` (`imageId`, `productId`, `path`, `orderId`) VALUES
+(1, 2, 'images/products/2_LP06emzC67EFqxwe.jpg', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_report`
+--
+
+CREATE TABLE `product_report` (
+  `reportId` int NOT NULL,
+  `productId` int NOT NULL,
+  `userId` int NOT NULL,
+  `reason` varchar(500) NOT NULL,
+  `status` int DEFAULT '0',
+  `createdDate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_view`
+--
+
+CREATE TABLE `product_view` (
+  `viewId` int NOT NULL,
+  `productId` int NOT NULL,
+  `userId` int DEFAULT NULL,
+  `ipAddress` varchar(45) DEFAULT NULL,
+  `viewedDate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `product_view`
+--
+
+INSERT INTO `product_view` (`viewId`, `productId`, `userId`, `ipAddress`, `viewedDate`) VALUES
+(1, 2, 1, '127.0.0.1', '2026-06-18 01:08:09'),
+(2, 2, 1, '127.0.0.1', '2026-06-18 01:08:09'),
+(3, 2, 1, '127.0.0.1', '2026-06-18 01:09:12'),
+(4, 2, 1, '127.0.0.1', '2026-06-18 01:09:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `saved_search`
+--
+
+CREATE TABLE `saved_search` (
+  `searchId` int NOT NULL,
+  `userId` int NOT NULL,
+  `keyword` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `fcId` int DEFAULT '0',
+  `scId` int DEFAULT '0',
+  `createdDate` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `search_history`
+--
+
+CREATE TABLE `search_history` (
+  `historyId` int NOT NULL,
+  `userId` int NOT NULL,
+  `keyword` varchar(200) NOT NULL,
+  `createdDate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -88,23 +263,56 @@ CREATE TABLE `productImage` (
 --
 
 CREATE TABLE `user` (
-  `userId` int(11) NOT NULL,
-  `firstName` varchar(15) NOT NULL,
-  `lastName` varchar(15) NOT NULL,
-  `password` varchar(240) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `isVerify` int(1) NOT NULL,
-  `profilePic` varchar(200) NOT NULL,
-  `verifyCode` varchar(200) NOT NULL,
-  `seo` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `userId` int NOT NULL,
+  `firstName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `lastActive` datetime DEFAULT NULL,
+  `responseTime` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `responseRate` int DEFAULT '0',
+  `profilePic` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `seo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `isVerify` tinyint(1) DEFAULT '0',
+  `verifyCode` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `createdDate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `lastLogin` datetime DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`userId`, `firstName`, `lastName`, `password`, `email`, `isVerify`, `profilePic`, `verifyCode`, `seo`) VALUES
-(1, 'Jerry', 'Wong', 'Q160zVLZojqwZO6Gg3Mx+KRXmk8430UIUoTUQxVEpAa8T6D8M+pyRSbVlLMMexlmQXXFbd8a0ttbStiuO3s8+A==', 'man0551hk@yahoo.com.hk', 1, '', 'ltY8SV4pur2A451D', 'jerrywong');
+INSERT INTO `user` (`userId`, `firstName`, `lastName`, `email`, `password`, `phone`, `lastActive`, `responseTime`, `responseRate`, `profilePic`, `seo`, `isVerify`, `verifyCode`, `createdDate`, `lastLogin`, `status`) VALUES
+(1, 'Jerry', 'Wong', 'man0551hk@gmail.com', '$2y$10$LVujEzuQQHZAnnuUwezL3O3.WBpUWJTjor6ljfGrHxfyaUQOELPum', '', NULL, NULL, 0, '', 'jerrywong412', 0, '2711c3112a29d0e0', '2026-06-18 01:05:21', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_block`
+--
+
+CREATE TABLE `user_block` (
+  `blockId` int NOT NULL,
+  `userId` int NOT NULL,
+  `blockedUserId` int NOT NULL,
+  `createdDate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_follow`
+--
+
+CREATE TABLE `user_follow` (
+  `followId` int NOT NULL,
+  `followerId` int NOT NULL,
+  `followingId` int NOT NULL,
+  `createdDate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Indexes for dumped tables
@@ -114,26 +322,113 @@ INSERT INTO `user` (`userId`, `firstName`, `lastName`, `password`, `email`, `isV
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fcId` (`fcId`),
+  ADD KEY `seo_tc` (`seo_tc`),
+  ADD KEY `seo_en` (`seo_en`);
+
+--
+-- Indexes for table `favorite`
+--
+ALTER TABLE `favorite`
+  ADD PRIMARY KEY (`favoriteId`),
+  ADD UNIQUE KEY `userId_productId` (`userId`,`productId`),
+  ADD KEY `userId` (`userId`),
+  ADD KEY `productId` (`productId`);
+
+--
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`messageId`),
+  ADD KEY `fromUserId` (`fromUserId`),
+  ADD KEY `toUserId` (`toUserId`),
+  ADD KEY `status` (`status`);
+
+--
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`notificationId`),
+  ADD KEY `idx_user` (`userId`),
+  ADD KEY `idx_read` (`isRead`);
 
 --
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`productId`),
-  ADD KEY `productId` (`productId`,`refId`,`fcId`,`scId`,`condition`,`price`,`keyword`,`status`);
+  ADD UNIQUE KEY `refId` (`refId`),
+  ADD KEY `fcId` (`fcId`),
+  ADD KEY `scId` (`scId`),
+  ADD KEY `userId` (`userId`),
+  ADD KEY `status` (`status`),
+  ADD KEY `createdDate` (`createdDate`);
 
 --
 -- Indexes for table `productImage`
 --
 ALTER TABLE `productImage`
-  ADD PRIMARY KEY (`imageId`);
+  ADD PRIMARY KEY (`imageId`),
+  ADD KEY `productId` (`productId`);
+
+--
+-- Indexes for table `product_report`
+--
+ALTER TABLE `product_report`
+  ADD PRIMARY KEY (`reportId`),
+  ADD KEY `idx_product` (`productId`),
+  ADD KEY `idx_user` (`userId`);
+
+--
+-- Indexes for table `product_view`
+--
+ALTER TABLE `product_view`
+  ADD PRIMARY KEY (`viewId`),
+  ADD KEY `idx_product` (`productId`),
+  ADD KEY `idx_user` (`userId`),
+  ADD KEY `idx_date` (`viewedDate`);
+
+--
+-- Indexes for table `saved_search`
+--
+ALTER TABLE `saved_search`
+  ADD PRIMARY KEY (`searchId`),
+  ADD KEY `userId` (`userId`);
+
+--
+-- Indexes for table `search_history`
+--
+ALTER TABLE `search_history`
+  ADD PRIMARY KEY (`historyId`),
+  ADD KEY `idx_user` (`userId`),
+  ADD KEY `idx_date` (`createdDate`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`userId`);
+  ADD PRIMARY KEY (`userId`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `seo` (`seo`);
+
+--
+-- Indexes for table `user_block`
+--
+ALTER TABLE `user_block`
+  ADD PRIMARY KEY (`blockId`),
+  ADD UNIQUE KEY `unique_block` (`userId`,`blockedUserId`),
+  ADD KEY `idx_user` (`userId`),
+  ADD KEY `idx_blocked` (`blockedUserId`);
+
+--
+-- Indexes for table `user_follow`
+--
+ALTER TABLE `user_follow`
+  ADD PRIMARY KEY (`followId`),
+  ADD UNIQUE KEY `unique_follow` (`followerId`,`followingId`),
+  ADD KEY `idx_follower` (`followerId`),
+  ADD KEY `idx_following` (`followingId`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -143,22 +438,77 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+
+--
+-- AUTO_INCREMENT for table `favorite`
+--
+ALTER TABLE `favorite`
+  MODIFY `favoriteId` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `messageId` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `notificationId` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `productId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `productImage`
 --
 ALTER TABLE `productImage`
-  MODIFY `imageId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `imageId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `product_report`
+--
+ALTER TABLE `product_report`
+  MODIFY `reportId` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `product_view`
+--
+ALTER TABLE `product_view`
+  MODIFY `viewId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `saved_search`
+--
+ALTER TABLE `saved_search`
+  MODIFY `searchId` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `search_history`
+--
+ALTER TABLE `search_history`
+  MODIFY `historyId` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `userId` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `user_block`
+--
+ALTER TABLE `user_block`
+  MODIFY `blockId` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_follow`
+--
+ALTER TABLE `user_follow`
+  MODIFY `followId` int NOT NULL AUTO_INCREMENT;
+COMMIT;
