@@ -14,6 +14,7 @@
   <link rel="stylesheet" media="screen" href="<?= Url::getDomain() ?>html/vendor/tiny-slider/dist/tiny-slider.css">
   <link rel="stylesheet" media="screen" href="<?= Url::getDomain() ?>html/css/theme.css">
   <link rel="stylesheet" href="<?= Url::getDomain() ?>dist/style.css?v=<?= time(); ?>">
+  <script src="<?= Url::getDomain() ?>html/vendor/jquery/dist/jquery.min.js"></script>
 </head>
 <body class="toolbar-enabled">
 <?php
@@ -97,7 +98,7 @@ $isTc = Session::get("lang") == "tc";
             </div>
             <a class="navbar-tool" href="<?= Url::getDomain() ?>inbox/" data-toggle="tooltip" title="<?= Lang::$lang["myMessages"] ?>">
               <span class="navbar-tool-tooltip"><?= Lang::$lang["myMessages"] ?></span>
-              <div class="navbar-tool-icon-box"><i class="navbar-tool-icon czi-comment"></i></div>
+              <div class="navbar-tool-icon-box"><i class="navbar-tool-icon czi-message"></i></div>
             </a>
             <div class="navbar-tool dropdown ml-3">
               <a class="navbar-tool ml-1 ml-lg-0 mr-n1 mr-lg-2" href="#" data-toggle="dropdown">

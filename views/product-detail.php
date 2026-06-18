@@ -1,6 +1,7 @@
 <?php
 $isTc = Session::get("lang") == "tc";
 $priceParts = explode('.', number_format((float)$product['price'], 2, '.', ''));
+$isOwner = Session::get('userId') && Session::get('userId') == $product['seller']['userId'];
 ?>
 
 <div class="page-title-overlap bg-img pt-4">
@@ -106,10 +107,34 @@ $priceParts = explode('.', number_format((float)$product['price'], 2, '.', ''));
                 </div>
               </div>
 
-              <?php if (Session::get('userId') && Session::get('userId') != $product['seller']['userId']): ?>
-                <a href="<?= Url::getDomain() ?>inbox/<?= $product['seller']['userId'] ?>/" class="btn btn-primary btn-block btn-shadow mb-2">
-                  <i class="czi-comment mr-2"></i><?= Lang::$lang['chatWithSeller'] ?>
-                </a>
+              <?php if (Session::get('userId') && !$isOwner): ?>
+                <!-- Chatbox - Direct chat on product page -->
+                <div class="bg-secondary rounded-lg p-3 mb-3">
+                  <h6 class="font-size-sm font-weight-medium mb-2">
+                    <i class="czi-comment mr-1"></i><?= $isTc ? "即時對話" : "Live Chat" ?>
+                  </h6>
+                  <div id="productChatMessages" class="mb-2" style="max-height:150px;overflow-y:auto;font-size:0.8125rem;">
+                    <div class="text-center text-muted py-3 font-size-xs"><?= $isTc ? "開始與賣家對話..." : "Start chatting with seller..." ?></div>
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" id="productChatInput" placeholder="<?= Lang::$lang['typeMessage'] ?>" onkeypress="if(event.key==='Enter')sendProductChat()">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary btn-sm" onclick="sendProductChat()"><i class="czi-send"></i></button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Confirm Purchase Button -->
+                <?php if (!$product['isSold']): ?>
+                  <button class="btn btn-success btn-block btn-shadow mb-2" id="confirmPurchaseBtn" onclick="confirmPurchase(<?= $product['productId'] ?>, <?= $product['seller']['userId'] ?>)">
+                    <i class="czi-bag mr-2"></i><?= Lang::$lang['confirmPurchase'] ?>
+                  </button>
+                <?php else: ?>
+                  <button class="btn btn-secondary btn-block mb-2" disabled>
+                    <i class="czi-check mr-2"></i><?= $isTc ? "已售出" : "Sold" ?>
+                  </button>
+                <?php endif; ?>
+
                 <div class="d-flex flex-wrap">
                   <button class="btn btn-outline-accent btn-sm flex-grow-1 mr-2 mb-2" onclick="toggleFollow(<?= $product['seller']['userId'] ?>)">
                     <i class="czi-user mr-1"></i><span id="followBtnText"><?= $isTc ? "關注" : "Follow" ?></span>
@@ -183,6 +208,9 @@ $priceParts = explode('.', number_format((float)$product['price'], 2, '.', ''));
 </div>
 
 <script>
+var sellerUserId = <?= isset($product['seller']) ? $product['seller']['userId'] : 0 ?>;
+var currentUserId = <?= Session::get('userId') ? Session::get('userId') : 0 ?>;
+
 function toggleFavorite(productId) {
   $.post('<?= Url::getDomain() ?>api/toggle-favorite/', {productId: productId}, function(data) {
     showToast(data.favorited ? '<?= Lang::$lang["favoriteAdded"] ?>' : '<?= Lang::$lang["favoriteRemoved"] ?>', data.favorited ? 'success' : 'info');
@@ -227,11 +255,99 @@ function toggleBlock(userId) {
     });
   }
 }
+
+// Chatbox on product page
+function sendProductChat() {
+  var input = document.getElementById('productChatInput');
+  var content = input.value.trim();
+  if (!content || !sellerUserId) return;
+  
+  $.post('<?= Url::getDomain() ?>api/send-message/', {
+    toUserId: sellerUserId,
+    content: content
+  }, function(data) {
+    if (data.success) {
+      addChatMessage(content, true);
+      input.value = '';
+    }
+  });
+}
+
+function addChatMessage(content, isMine) {
+  var container = document.getElementById('productChatMessages');
+  // Remove empty state
+  var emptyState = container.querySelector('.text-center.text-muted');
+  if (emptyState) emptyState.remove();
+  
+  var now = new Date();
+  var time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  
+  var div = document.createElement('div');
+  div.className = 'mb-2 d-flex' + (isMine ? ' justify-content-end' : '');
+  div.innerHTML = '<div class="rounded-lg px-2 py-1 ' + (isMine ? 'bg-primary text-white' : 'bg-light') + '" style="max-width:85%;font-size:0.8125rem;">' + 
+    escapeHtml(content) + 
+    '<div class="font-size-xs opacity-75 text-right mt-1">' + time + '</div></div>';
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function escapeHtml(text) {
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(text));
+  return div.innerHTML;
+}
+
+// Load recent chat messages
+function loadProductChat() {
+  if (!sellerUserId || !currentUserId) return;
+  $.get('<?= Url::getDomain() ?>api/get-messages/', {otherUserId: sellerUserId}, function(data) {
+    if (data && data.length > 0) {
+      var container = document.getElementById('productChatMessages');
+      container.innerHTML = '';
+      data.forEach(function(msg) {
+        addChatMessage(msg.content, msg.fromUserId == currentUserId);
+      });
+    }
+  });
+}
+
+// Confirm Purchase
+function confirmPurchase(productId, sellerId) {
+  if (!confirm('<?= $isTc ? "確定要購買此商品？賣家確認後，雙方可以互相評分。" : "Confirm purchase? After seller confirms, both parties can rate each other." ?>')) return;
+  
+  $.post('<?= Url::getDomain() ?>api/create-purchase-intent/', {
+    productId: productId,
+    sellerId: sellerId
+  }, function(data) {
+    if (data.success) {
+      showToast(data.message, 'success');
+      $('#confirmPurchaseBtn').prop('disabled', true).text('<?= $isTc ? "已發送購買請求" : "Request Sent" ?>').removeClass('btn-success').addClass('btn-secondary');
+    } else {
+      showToast(data.message, 'warning');
+    }
+  });
+}
+
+// Check if user already has a pending intent
+function checkPendingIntent() {
+  <?php if (Session::get('userId') && !$isOwner && !$product['isSold']): ?>
+  $.get('<?= Url::getDomain() ?>api/check-pending-intent/', {productId: <?= $product['productId'] ?>}, function(data) {
+    if (data && data.status && data.status != 'none') {
+      $('#confirmPurchaseBtn').prop('disabled', true).text('<?= $isTc ? "已發送購買請求" : "Request Sent" ?>').removeClass('btn-success').addClass('btn-secondary');
+    }
+  });
+  <?php endif; ?>
+}
+
 $(document).ready(function() {
-  <?php if (Session::get('userId') && isset($product['seller']) && Session::get('userId') != $product['seller']['userId']): ?>
+  <?php if (Session::get('userId') && isset($product['seller']) && !$isOwner): ?>
   $.get('<?= Url::getDomain() ?>api/is-following/', {followingId: <?= $product['seller']['userId'] ?>}, function(data) {
     if (data.following) $('#followBtnText').text('<?= $isTc ? "已關注" : "Following" ?>');
   });
+  loadProductChat();
+  // Poll for new messages every 10 seconds
+  setInterval(loadProductChat, 10000);
+  checkPendingIntent();
   <?php endif; ?>
 });
 </script>

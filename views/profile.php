@@ -37,6 +37,14 @@ $followingCount = $this->userController->getFollowingCount($profileUser['userId'
             </div>
             <h3 class="font-size-base mb-1"><?= htmlspecialchars($profileUser['firstName'] . ' ' . $profileUser['lastName']) ?></h3>
             <span class="text-muted font-size-sm"><i class="czi-time mr-1"></i><?= Lang::$lang['memberSince'] ?> <?= date('Y-m') ?></span>
+            <?php if ($profileUser['ratingAvg'] > 0): ?>
+              <div class="mt-2">
+                <?php for ($i = 1; $i <= 5; $i++): ?>
+                  <i class="czi-star<?= $i <= round($profileUser['ratingAvg']) ? ' text-warning' : ' text-muted' ?> font-size-sm"></i>
+                <?php endfor; ?>
+                <span class="font-size-xs text-muted ml-1">(<?= (int)$profileUser['ratingCount'] ?>)</span>
+              </div>
+            <?php endif; ?>
           </div>
         </div>
 
@@ -80,23 +88,48 @@ $followingCount = $this->userController->getFollowingCount($profileUser['userId'
     </aside>
 
     <section class="col-lg-9">
-      <div class="d-flex justify-content-between align-items-center pt-lg-3 pb-4 mb-3">
-        <h2 class="h5 mb-0"><?= Lang::$lang['products'] ?></h2>
-      </div>
+      <!-- Tabs for Products / Reviews -->
+      <ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="products-tab" data-toggle="tab" href="#products" role="tab" aria-controls="products" aria-selected="true">
+            <i class="czi-bag mr-1"></i><?= Lang::$lang['products'] ?>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">
+            <i class="czi-star mr-1"></i><?= Lang::$lang['reviews'] ?>
+          </a>
+        </li>
+      </ul>
 
-      <?php if (!empty($products)): ?>
-        <div class="row mx-n2">
-          <?php foreach ($products as $product):
-            $colClass = 'col-lg-3 col-md-4 col-6';
-            require 'views/partials/product-card.php';
-          endforeach; ?>
+      <div class="tab-content" id="profileTabContent">
+        <!-- Products Tab -->
+        <div class="tab-pane fade show active" id="products" role="tabpanel" aria-labelledby="products-tab">
+          <?php if (!empty($products)): ?>
+            <div class="row mx-n2">
+              <?php foreach ($products as $product):
+                $colClass = 'col-lg-3 col-md-4 col-6';
+                require 'views/partials/product-card.php';
+              endforeach; ?>
+            </div>
+          <?php else: ?>
+            <div class="text-center py-5">
+              <i class="czi-bag" style="font-size:4rem;color:#ccc;"></i>
+              <h5 class="mt-3"><?= Lang::$lang['noProducts'] ?></h5>
+            </div>
+          <?php endif; ?>
         </div>
-      <?php else: ?>
-        <div class="text-center py-5">
-          <i class="czi-bag" style="font-size:4rem;color:#ccc;"></i>
-          <h5 class="mt-3"><?= Lang::$lang['noProducts'] ?></h5>
+
+        <!-- Reviews Tab -->
+        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+          <div id="userReviewsContainer">
+            <div class="text-center py-5">
+              <div class="spinner-border text-primary" role="status"></div>
+              <p class="text-muted mt-2"><?= Lang::$lang['loading'] ?></p>
+            </div>
+          </div>
         </div>
-      <?php endif; ?>
+      </div>
     </section>
   </div>
 </div>
@@ -117,11 +150,60 @@ function toggleBlock(userId) {
     });
   }
 }
+
+// Load user reviews
+function loadUserReviews() {
+  $.get('<?= Url::getDomain() ?>api/get-user-reviews/', {userId: <?= $profileUser['userId'] ?>}, function(data) {
+    var container = document.getElementById('userReviewsContainer');
+    if (!data || data.length === 0) {
+      container.innerHTML = '<div class="text-center py-5"><i class="czi-star" style="font-size:3rem;color:#ccc;"></i><p class="text-muted mt-2 mb-0"><?= Lang::$lang["noReviews"] ?></p></div>';
+      return;
+    }
+    var html = '';
+    data.forEach(function(review) {
+      var stars = '';
+      for (var i = 1; i <= 5; i++) {
+        stars += '<i class="czi-star' + (i <= parseInt(review.rating) ? ' text-warning' : ' text-muted') + ' font-size-sm"></i>';
+      }
+      html += '<div class="card mb-3 border-0 shadow-sm">';
+      html += '<div class="card-body">';
+      html += '<div class="d-flex align-items-center mb-2">';
+      if (review.profilePic) {
+        html += '<img src="' + review.profilePic + '" class="rounded-circle mr-2" width="32" height="32" alt="">';
+      } else {
+        html += '<div class="rounded-circle bg-accent text-white d-flex align-items-center justify-content-center font-weight-bold mr-2" style="width:32px;height:32px;font-size:0.75rem;">' + review.firstName.charAt(0).toUpperCase() + '</div>';
+      }
+      html += '<div><strong class="font-size-sm">' + escapeHtml(review.firstName + ' ' + review.lastName) + '</strong>';
+      html += '<div class="font-size-xs text-muted">' + review.createdDate + '</div></div>';
+      html += '<div class="ml-auto">' + stars + '</div></div>';
+      if (review.listingTitle) {
+        html += '<div class="font-size-xs text-muted mb-1"><?= $isTc ? "商品：" : "Product: " ?> <a href="<?= Url::getDomain() ?>product/' + review.refId + '/" class="text-accent">' + escapeHtml(review.listingTitle) + '</a></div>';
+      }
+      if (review.comment) {
+        html += '<p class="font-size-sm mb-0">' + escapeHtml(review.comment) + '</p>';
+      }
+      html += '</div></div>';
+    });
+    container.innerHTML = html;
+  });
+}
+
+function escapeHtml(text) {
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(text));
+  return div.innerHTML;
+}
+
 $(document).ready(function() {
   <?php if (Session::get('userId') && Session::get('userId') != $profileUser['userId']): ?>
   $.get('<?= Url::getDomain() ?>api/is-following/', {followingId: <?= $profileUser['userId'] ?>}, function(data) {
     if (data.following) $('#followBtnText').text('<?= $isTc ? "已關注" : "Following" ?>');
   });
   <?php endif; ?>
+  
+  // Load reviews when tab is shown
+  $('#reviews-tab').on('shown.bs.tab', function() {
+    loadUserReviews();
+  });
 });
 </script>

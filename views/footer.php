@@ -170,7 +170,6 @@
   <i class="btn-scroll-top-icon czi-arrow-up"></i>
 </a>
 
-<script src="<?= Url::getDomain() ?>html/vendor/jquery/dist/jquery.min.js"></script>
 <script src="<?= Url::getDomain() ?>html/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<?= Url::getDomain() ?>html/vendor/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 <script src="<?= Url::getDomain() ?>html/vendor/simplebar/dist/simplebar.min.js"></script>

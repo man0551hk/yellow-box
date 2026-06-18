@@ -44,6 +44,8 @@
 	include_once 'controllers/ProductController.php';
 	include_once 'controllers/UserController.php';
 	include_once 'controllers/MessageController.php';
+	include_once 'controllers/PurchaseController.php';
+	include_once 'controllers/ReviewController.php';
 	include_once 'controllers/UrlController.php';
 	include_once 'controllers/PageController.php';
 	
@@ -53,8 +55,10 @@
 	$productController = new ProductController($dbController, $commonController);
 	$userController = new UserController($dbController);
 	$messageController = new MessageController($dbController);
+	$purchaseController = new PurchaseController($dbController);
+	$reviewController = new ReviewController($dbController);
 	$urlController = new UrlController($dbController, $commonController, $categoryController);
-	$pageController = new PageController($dbController, $commonController, $categoryController, $productController, $userController, $messageController, $urlController);
+	$pageController = new PageController($dbController, $commonController, $categoryController, $productController, $userController, $messageController, $purchaseController, $reviewController, $urlController);
 	
 	// Parse URL - get the path relative to domain
 	$requestUri = $_SERVER['REQUEST_URI'];

@@ -1,14 +1,14 @@
 <?php
 date_default_timezone_set("Asia/Hong_Kong");
-$domain = 'http://local.beta.yellowhub.com/'; 
-$cookieDomain = 'local.beta.yellowhub.com';
-$imageDomain = 'http://local.beta.yellowhub.com/'; 
-$productImageDomain = 'http://local.beta.yellowhub.com/'; 
+$domain = 'https://yellowhub.liveforce-production.com/'; 
+$cookieDomain = 'yellowhub.liveforce-production.com';
+$imageDomain = 'https://yellowhub.liveforce-production.com/'; 
+$productImageDomain = 'https://yellowhub.liveforce-production.com/'; 
 $env = 'local';
 $hostName = "localhost";
-$dbName = "sq_yellowhk";
-$userName = "root";
-$password = "root";
+$dbName = "liveforc_sq_yellowhub";
+$userName = "liveforc_sq_yellowhub";
+$password = "a-Q*[-lR5_S+zUu3";
 $xApiKey = "";
 $enablePermissionCheck = false;
 ?>

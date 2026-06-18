@@ -7,9 +7,11 @@ class PageController
   private $productController;
   private $userController;
   private $messageController;
+  private $purchaseController;
+  private $reviewController;
   private $urlController;
 
-  public function __construct($dbController, $commonController, $categoryController, $productController, $userController, $messageController, $urlController)
+  public function __construct($dbController, $commonController, $categoryController, $productController, $userController, $messageController, $purchaseController, $reviewController, $urlController)
   {
     $this->dbController = $dbController;
     $this->commonController = $commonController;
@@ -17,6 +19,8 @@ class PageController
     $this->productController = $productController;
     $this->userController = $userController;
     $this->messageController = $messageController;
+    $this->purchaseController = $purchaseController;
+    $this->reviewController = $reviewController;
     $this->urlController = $urlController;
   }
 
@@ -525,6 +529,65 @@ class PageController
         $keyword = $_POST['keyword'];
         $this->userController->addSearchHistory($keyword);
         echo json_encode(array('success' => true));
+        break;
+        
+      // Purchase intent endpoints
+      case 'create-purchase-intent':
+        $this->requireLogin();
+        $productId = intval($_POST['productId']);
+        $sellerId = intval($_POST['sellerId']);
+        $result = $this->purchaseController->createIntent($productId, Session::get('userId'), $sellerId);
+        echo json_encode($result);
+        break;
+        
+      case 'confirm-purchase-intent':
+        $this->requireLogin();
+        $intentId = intval($_POST['intentId']);
+        $result = $this->purchaseController->confirmIntent($intentId, Session::get('userId'));
+        echo json_encode($result);
+        break;
+        
+      case 'get-pending-intents':
+        $this->requireLogin();
+        $intents = $this->purchaseController->getSellerPendingIntents(Session::get('userId'));
+        echo json_encode($intents);
+        break;
+        
+      case 'get-buyer-intents':
+        $this->requireLogin();
+        $intents = $this->purchaseController->getBuyerIntents(Session::get('userId'));
+        echo json_encode($intents);
+        break;
+        
+      case 'check-pending-intent':
+        $this->requireLogin();
+        $productId = intval($_GET['productId']);
+        $intent = $this->purchaseController->hasPendingIntent($productId, Session::get('userId'));
+        echo json_encode($intent ? $intent : array('status' => 'none'));
+        break;
+        
+      // Review endpoints
+      case 'submit-review':
+        $this->requireLogin();
+        $intentId = intval($_POST['intentId']);
+        $toUserId = intval($_POST['toUserId']);
+        $productId = intval($_POST['productId']);
+        $rating = intval($_POST['rating']);
+        $comment = isset($_POST['comment']) ? $_POST['comment'] : '';
+        $result = $this->reviewController->submitReview($intentId, Session::get('userId'), $toUserId, $productId, $rating, $comment);
+        echo json_encode($result);
+        break;
+        
+      case 'get-user-reviews':
+        $userId = intval($_GET['userId']);
+        $reviews = $this->reviewController->getUserReviews($userId);
+        echo json_encode($reviews);
+        break;
+        
+      case 'get-completed-intents':
+        $this->requireLogin();
+        $intents = $this->purchaseController->getCompletedIntentsForUser(Session::get('userId'));
+        echo json_encode($intents);
         break;
         
       default:
